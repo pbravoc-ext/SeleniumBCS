@@ -1,0 +1,902 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<!--
+			ExtentReports Librería 2.41.1 | http://relevantcodes.com/extentreports-for-selenium/ | https://github.com/anshooarora/
+			Copyright (c) 2015, Anshoo Arora (Relevant Codes) | Derechos de autor bajo la nueva licencia BSD | http://opensource.org/licenses/BSD-3-Clause
+			Documentación: http://extentreports.relevantcodes.com 
+		-->
+
+		<meta charset='UTF-8' /> 
+		<meta name='description' content='ExtentReports (by Anshoo Arora) es una librería para el reporte de tests automatizados realizada en .NET y Java. Podrás crear detallados y bonitos informes HTML para los navegadores más modernos. ExtentReports muestra los tests y los pasos en un dashboard realizado especialmente para un análisis simple y rápido de los resultados de las pruebas.' />
+		<meta name='robots' content='noodp, noydir' />
+		<meta name='viewport' content='width=device-width, initial-scale=1' />
+		<meta name='extentx' id='extentx' content='' />
+		
+		<title>
+				ExtentReports - OPTIMUS
+		</title>
+		
+		
+		<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600' rel='stylesheet' type='text/css'>
+		<link href='https://cdn.rawgit.com/anshooarora/extentreports/6032d73243ba4fe4fb8769eb9c315d4fdf16fe68/cdn/extent.css' type='text/css' rel='stylesheet' />
+		
+		<style>
+				
+      
+        
+      
+    
+		</style>
+	</head>
+	
+	
+	<body class='extent default standard hide-overflow'>
+		<!-- nav -->
+		<nav>
+			<div class='logo-container blue darken-2'>
+				<a class='logo-content' href='http://extentreports.relevantcodes.com'>
+					<span>ExtentReports</span>
+				</a>
+				<a href='#' data-activates='slide-out' class='button-collapse hide-on-large-only'><i class='mdi-navigation-apps'></i></a>
+			</div>
+			<ul id='slide-out' class='side-nav fixed hide-on-med-and-down'>
+				<li class='analysis waves-effect active'><a href='#!' class='test-view' onclick="_updateCurrentStage(0)"><i class='mdi-action-dashboard'></i>Detalles de tests</a></li>
+				<li class='analysis waves-effect'>
+					<a href='#!' onclick="_updateCurrentStage(-1)" class='dashboard-view'><i class='mdi-action-track-changes'></i></i>Análisis</a>
+				</li>
+			</ul>
+			<span class='report-name'></span> <span class='report-headline'>Reporte Automatico </span>
+			<ul class='right hide-on-med-and-down nav-right'>
+				<li class='theme-selector' alt='Haga clic para cambiar al tema oscuro. Para habilitar de forma predeterminada, utilice la configuración js. $("body").addClass("dark");' title='Haga clic para cambiar al tema oscuro. Para habilitar de forma predeterminada, utilice la configuración js. $("body").addClass("dark");'>
+					<i class='mdi-hardware-desktop-windows'></i>
+				</li>
+				<li>
+					<span class='suite-started-time'>2019-09-30 12:58:26</span>
+				</li>
+				<li>
+					<span>v2.41.1</span>
+				</li>
+			</ul>
+		</nav>
+		<!-- /nav -->
+		
+		<!-- container -->
+		<div class='container'>
+			
+			<!-- dashboard -->
+			<div id='dashboard-view' class='row'>
+				<div class='time-totals'>
+					<div class='col l2 m4 s6'>
+						<div class='card suite-total-tests'> 
+							<span class='panel-name'>Tests totales</span> 
+							<span class='total-tests'> <span class='panel-lead'></span> </span> 
+						</div> 
+					</div>
+					<div class='col l2 m4 s6'>
+						<div class='card suite-total-steps'> 
+							<span class='panel-name'>Pasos totales</span> 
+							<span class='total-steps'> <span class='panel-lead'></span> </span> 
+						</div> 
+					</div>
+					<div class='col l2 m4 s12'>
+						<div class='card suite-total-time-current'> 
+							<span class='panel-name'>Tiempo total insumido (Corrida actual)</span> 
+							<span class='suite-total-time-current-value panel-lead'>0h 8m 40s+394ms</span> 
+						</div> 
+					</div>
+					<div class='col l2 m4 s12'>
+						<div class='card suite-total-time-overall'> 
+							<span class='panel-name'>Tiempo total insumido (En general)</span> 
+							<span class='suite-total-time-overall-value panel-lead'>0h 8m 40s+394ms</span> 
+						</div> 
+					</div>
+					<div class='col l2 m4 s6 suite-start-time'>
+						<div class='card accent green-accent'> 
+							<span class='panel-name'>Comienzo</span> 
+							<span class='panel-lead suite-started-time'>2019-09-30 12:49:45</span> 
+						</div> 
+					</div>
+					<div class='col l2 m4 s6 suite-end-time'>
+						<div class='card accent pink-accent'> 
+							<span class='panel-name'>Fin</span> 
+							<span class='panel-lead suite-ended-time'>2019-09-30 12:58:26</span> 
+						</div> 
+					</div>
+				</div>
+				<div class='charts'>
+					<div class='col s12 m6 l4 fh'> 
+						<div class='card-panel'> 
+							<div>
+								<span class='panel-name'>Resultados de test</span>
+							</div> 
+							<div class='panel-setting modal-trigger test-count-setting right'>
+								<a href='#test-count-setting'><i class='mdi-navigation-more-vert text-md'></i></a>
+							</div> 
+							<div class='chart-box'>
+								<canvas class='text-centered' id='test-analysis'></canvas>
+							</div> 
+							<div>
+								<span class='weight-light'><span class='t-pass-count weight-normal'></span> Test(s) correcto(s)</span>
+							</div> 
+							<div>
+								<span class='weight-light'><span class='t-fail-count weight-normal'></span> Test(s) fallado(s), <span class='t-others-count weight-normal'></span> otro(s)</span>
+							</div> 
+						</div> 
+					</div> 
+					<div class='col s12 m6 l4 fh'> 
+						<div class='card-panel'> 
+							<div>
+								<span class='panel-name'>Resultados de pasos</span>
+							</div> 
+							<div class='panel-setting modal-trigger step-status-filter right'>
+								<a href='#step-status-filter'><i class='mdi-navigation-more-vert text-md'></i></a>
+							</div> 
+							<div class='chart-box'>
+								<canvas class='text-centered' id='step-analysis'></canvas>
+							</div> 
+							<div>
+								<span class='weight-light'><span class='s-pass-count weight-normal'></span> paso(s) correcto(s)</span>
+							</div> 
+							<div>
+								<span class='weight-light'><span class='s-fail-count weight-normal'></span> paso(s) fallado(s), <span class='s-others-count weight-normal'></span> otro(s)</span>
+							</div> 
+						</div> 
+					</div>
+					<div class='col s12 m12 l4 fh'> 
+						<div class='card-panel'> 
+							<span class='panel-name'>Porcentaje de test correctos</span> 
+							<span class='pass-percentage panel-lead'></span> 
+							<div class='progress light-blue lighten-3'> 
+								<div class='determinate light-blue'></div> 
+							</div> 
+						</div> 
+					</div>
+				</div>
+				<div class='system-view'>
+					<div class='col l4 m12 s12'>
+						<div class='card-panel'>
+							<span class='label info outline right'>Ambiente</span>
+							<table>
+								<thead>
+									<tr>
+										<th>Parámetro</th>
+										<th>Valor</th>
+									</tr>
+								</thead>
+								<tbody>
+										<tr>
+											<td>User Name</td>
+											<td>ROBOT</td>
+										</tr>
+										<tr>
+											<td>OS</td>
+											<td>Windows 10</td>
+										</tr>
+										<tr>
+											<td>Java Version</td>
+											<td>11.0.4</td>
+										</tr>
+										<tr>
+											<td>Host Name</td>
+											<td>Automatizacion OPTIMUS</td>
+										</tr>
+										<tr>
+											<td>Encoding</td>
+											<td>UTF-8</td>
+										</tr>
+										<tr>
+											<td>Environment</td>
+											<td>http://bolsa.optimuscb.cl:9045</td>
+										</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /dashboard -->
+			
+			<!-- tests -->
+			<div id='test-view' class='row _addedTable'>
+				<div class='col _addedCell1'>
+					<div class='contents'>
+						<div class='card-panel heading'>
+							<h5>Tests</h5>
+						</div>
+						<div class='card-panel filters'>
+							<div>
+								<a class='dropdown-button btn-floating btn-small waves-effect waves-light grey tests-toggle' data-activates='tests-toggle' data-constrainwidth='true' data-beloworigin='true' data-hover='true' href='#'>
+									<i class='mdi-action-reorder'></i>
+								</a>
+								<ul id='tests-toggle' class='dropdown-content'>
+									<li class='pass'><a href='#!'>Pass</a></li>
+									<li class='fail'><a href='#!'>Fail</a></li>
+									<li class='skip'><a href='#!'>Skip</a></li>
+									<li class='divider'></li>
+									<li class='clear'><a href='#!'>Borrar filtro</a></li>
+								</ul>
+							</div>
+							<div>
+								<a class='btn-floating btn-small waves-effect waves-light grey' id='clear-filters' alt='Borrar filtro' title='Borrar filtro'>
+									<i class='mdi-navigation-close'></i>
+								</a>
+							</div>
+							<div>
+								<a class='btn-floating btn-small waves-effect waves-light grey' id='enableDashboard' alt='Activar Dashboard' title='Activar Dashboard'>
+									<i class='mdi-action-track-changes'></i>
+								</a>
+							</div>
+							<div>
+								<a class='btn-floating btn-small waves-effect waves-light blue enabled' id='refreshCharts' alt='Refrescar gráficos con filtro' title='Refrescar gráficos con filtro'>
+									<i class='mdi-navigation-refresh'></i>
+								</a>
+							</div>
+							<div class='search' alt='Buscar test(s)' title='Buscar test(s)'>
+								<div class='input-field left'>
+									<input id='searchTests' type='text' class='validate' placeholder='Buscar test(s)...'>
+								</div>
+								<a href="#" class='btn-floating btn-small waves-effect waves-light grey'>
+									<i class='mdi-action-search'></i>
+								</a>
+							</div>
+						</div>
+						<div class='card-panel no-padding-h no-padding-v no-margin-v'>
+							<div class='wrapper'>
+								<ul id='test-collection' class='test-collection'>
+										<li class='collection-item test displayed active pass ' extentid='302c6df7-3ff0-4cfd-b255-2d983f8c7184'>
+											<div class='test-head'>
+												<span class='test-name'>Login </span>
+												<span class='test-status label right outline capitalize pass'>pass</span>
+												<span class='category-assigned hide '></span>
+											</div>
+											<div class='test-body'>
+												<div class='test-info'>
+													<span title='Comienzo del test' alt='Comienzo del test' class='test-started-time label green lighten-1 text-white'>2019-09-30 12:49:46</span>
+													<span title='Fin de test' alt='Fin de test' class='test-ended-time label red lighten-1 text-white'>2019-09-30 12:50:01</span>
+													<span title='Tiempo de ejecución' alt='Tiempo de ejecución' class='test-time-taken label blue-grey lighten-3 text-white'>0h 0m 15s+74ms</span>
+												</div>
+												<div class='test-desc'></div>
+												<div class='test-attributes'>
+												</div>
+												<div class='test-steps'>
+													<table class='bordered table-results'>
+														<thead>
+															<tr>
+																<th>Resultado</th>
+																<th>Hora</th>
+																	<th>StepName</th>
+																<th>Detalle</th>
+															</tr>
+														</thead>
+														<tbody>
+																<tr>
+																	<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+																	<td class='timestamp'>12:49:54</td>
+																		<td class='step-name'>Ingreso de Usuario</td>
+																	<td class='step-details'><a href='C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/Ingreso de Usuario-300920191249.png' data-featherlight='image'><img class='report-img' src='file:///C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/Ingreso de Usuario-300920191249.png' /></a></td>
+																</tr>
+																<tr>
+																	<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+																	<td class='timestamp'>12:50:01</td>
+																		<td class='step-name'>Login Exitoso</td>
+																	<td class='step-details'><a href='C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/Login Exitoso-300920191249.png' data-featherlight='image'><img class='report-img' src='file:///C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/Login Exitoso-300920191249.png' /></a></td>
+																</tr>
+																<tr>
+																	<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+																	<td class='timestamp'>12:50:01</td>
+																		<td class='step-name'>Login Completado</td>
+																	<td class='step-details'></td>
+																</tr>
+														</tbody>
+													</table>
+													<ul class='collapsible node-list' data-collapsible='accordion'>
+													</ul>
+												</div>
+											</div>
+										</li>
+										<li class='collection-item test displayed active fail ' extentid='f1938571-7edb-4bbd-a9ca-5f1b9cc51500'>
+											<div class='test-head'>
+												<span class='test-name'>Compra + No arbitraje + Cuenta Inversion </span>
+												<span class='test-status label right outline capitalize fail'>fail</span>
+												<span class='category-assigned hide '></span>
+											</div>
+											<div class='test-body'>
+												<div class='test-info'>
+													<span title='Comienzo del test' alt='Comienzo del test' class='test-started-time label green lighten-1 text-white'>2019-09-30 12:50:01</span>
+													<span title='Fin de test' alt='Fin de test' class='test-ended-time label red lighten-1 text-white'>2019-09-30 12:58:26</span>
+													<span title='Tiempo de ejecución' alt='Tiempo de ejecución' class='test-time-taken label blue-grey lighten-3 text-white'>0h 8m 24s+513ms</span>
+												</div>
+												<div class='test-desc'></div>
+												<div class='test-attributes'>
+												</div>
+												<div class='test-steps'>
+													<table class='bordered table-results'>
+														<thead>
+															<tr>
+																<th>Resultado</th>
+																<th>Hora</th>
+																	<th>StepName</th>
+																<th>Detalle</th>
+															</tr>
+														</thead>
+														<tbody>
+																<tr>
+																	<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+																	<td class='timestamp'>12:50:36</td>
+																		<td class='step-name'>Mantenedor Puntas USD - Datos</td>
+																	<td class='step-details'><a href='C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/Mantenedor Puntas USD - Datos-300920191250.png' data-featherlight='image'><img class='report-img' src='file:///C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/Mantenedor Puntas USD - Datos-300920191250.png' /></a></td>
+																</tr>
+																<tr>
+																	<td class='status info' title='info' alt='info'><i class='mdi-action-info-outline'></i></td>
+																	<td class='timestamp'>12:50:36</td>
+																		<td class='step-name'>Valor Compra</td>
+																	<td class='step-details'>680,0000</td>
+																</tr>
+																<tr>
+																	<td class='status info' title='info' alt='info'><i class='mdi-action-info-outline'></i></td>
+																	<td class='timestamp'>12:50:36</td>
+																		<td class='step-name'>Valor Venta</td>
+																	<td class='step-details'>700,0000</td>
+																</tr>
+																<tr>
+																	<td class='status info' title='info' alt='info'><i class='mdi-action-info-outline'></i></td>
+																	<td class='timestamp'>12:50:36</td>
+																		<td class='step-name'>Monto USD</td>
+																	<td class='step-details'>1.000,0000</td>
+																</tr>
+																<tr>
+																	<td class='status info' title='info' alt='info'><i class='mdi-action-info-outline'></i></td>
+																	<td class='timestamp'>12:50:36</td>
+																		<td class='step-name'>Compra USD</td>
+																	<td class='step-details'>670,0000</td>
+																</tr>
+																<tr>
+																	<td class='status info' title='info' alt='info'><i class='mdi-action-info-outline'></i></td>
+																	<td class='timestamp'>12:50:36</td>
+																		<td class='step-name'>Venta USD</td>
+																	<td class='step-details'>710,0000</td>
+																</tr>
+																<tr>
+																	<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+																	<td class='timestamp'>12:51:39</td>
+																		<td class='step-name'>Validacion Existosa</td>
+																	<td class='step-details'>Comparacion valores Punta Compra: 680,0000</td>
+																</tr>
+																<tr>
+																	<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+																	<td class='timestamp'>12:51:42</td>
+																		<td class='step-name'>Validacion Existosa</td>
+																	<td class='step-details'>Comparacion valores Punta Venta: 700,0000</td>
+																</tr>
+																<tr>
+																	<td class='status info' title='info' alt='info'><i class='mdi-action-info-outline'></i></td>
+																	<td class='timestamp'>12:52:03</td>
+																		<td class='step-name'>Ingreso instrumento</td>
+																	<td class='step-details'>Datos: INTERBANCARIO</td>
+																</tr>
+																<tr>
+																	<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+																	<td class='timestamp'>12:52:08</td>
+																		<td class='step-name'>Validacion exitosa de campo T/C Costo</td>
+																	<td class='step-details'>T/C Costo no esta disponible</td>
+																</tr>
+																<tr>
+																	<td class='status info' title='info' alt='info'><i class='mdi-action-info-outline'></i></td>
+																	<td class='timestamp'>12:52:20</td>
+																		<td class='step-name'>Ingreso instrumento</td>
+																	<td class='step-details'>Datos: DISTRIBUCION</td>
+																</tr>
+																<tr>
+																	<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+																	<td class='timestamp'>12:52:25</td>
+																		<td class='step-name'>Validacion exitosa de campo T/C Costo</td>
+																	<td class='step-details'>T/C Costo esta disponible</td>
+																</tr>
+																<tr>
+																	<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+																	<td class='timestamp'>12:52:36</td>
+																		<td class='step-name'>Validacion exitosa de Margen para no arbitraje</td>
+																	<td class='step-details'>Dato: 39440</td>
+																</tr>
+																<tr>
+																	<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+																	<td class='timestamp'>12:52:36</td>
+																		<td class='step-name'>Monto Equivalente Valido para no arbitraje</td>
+																	<td class='step-details'>Datos: 640560</td>
+																</tr>
+																<tr>
+																	<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+																	<td class='timestamp'>12:52:36</td>
+																		<td class='step-name'>Ingresar operacion spot - Datos operacion - Spot</td>
+																	<td class='step-details'><a href='C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/Ingresar operacion spot - Datos operacion - Spot-300920191252.png' data-featherlight='image'><img class='report-img' src='file:///C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/Ingresar operacion spot - Datos operacion - Spot-300920191252.png' /></a></td>
+																</tr>
+																<tr>
+																	<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+																	<td class='timestamp'>12:52:39</td>
+																		<td class='step-name'>Ingreso Datos cliente</td>
+																	<td class='step-details'>17919279-9 FELIPE ARAVENA CONNELL (0)</td>
+																</tr>
+																<tr>
+																	<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+																	<td class='timestamp'>12:52:39</td>
+																		<td class='step-name'>Seleccion moneda principal</td>
+																	<td class='step-details'>USD</td>
+																</tr>
+																<tr>
+																	<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+																	<td class='timestamp'>12:52:39</td>
+																		<td class='step-name'>Seleccion moneda Secundaria</td>
+																	<td class='step-details'>CLP</td>
+																</tr>
+																<tr>
+																	<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+																	<td class='timestamp'>12:52:39</td>
+																		<td class='step-name'>Ingreso monto principal</td>
+																	<td class='step-details'>1000</td>
+																</tr>
+																<tr>
+																	<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+																	<td class='timestamp'>12:52:39</td>
+																		<td class='step-name'>Ingreso monto Paridad cierre</td>
+																	<td class='step-details'>0</td>
+																</tr>
+																<tr>
+																	<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+																	<td class='timestamp'>12:52:39</td>
+																		<td class='step-name'>Ingreso instrumento</td>
+																	<td class='step-details'>DISTRIBUCION</td>
+																</tr>
+																<tr>
+																	<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+																	<td class='timestamp'>12:52:39</td>
+																		<td class='step-name'>Ingreso operacion</td>
+																	<td class='step-details'>Compra</td>
+																</tr>
+																<tr>
+																	<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+																	<td class='timestamp'>12:52:39</td>
+																		<td class='step-name'>Ingreso monto principal</td>
+																	<td class='step-details'>1000</td>
+																</tr>
+																<tr>
+																	<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+																	<td class='timestamp'>12:52:39</td>
+																		<td class='step-name'>Ingreso monto T/C cierre</td>
+																	<td class='step-details'>640,56</td>
+																</tr>
+																<tr>
+																	<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+																	<td class='timestamp'>12:52:43</td>
+																		<td class='step-name'>Ingresar operacion Spot - Validaciones</td>
+																	<td class='step-details'><a href='C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/Ingresar operacion Spot - Validaciones-300920191252.png' data-featherlight='image'><img class='report-img' src='file:///C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/Ingresar operacion Spot - Validaciones-300920191252.png' /></a></td>
+																</tr>
+																<tr>
+																	<td class='status info' title='info' alt='info'><i class='mdi-action-info-outline'></i></td>
+																	<td class='timestamp'>12:52:43</td>
+																		<td class='step-name'>IOSPuntaCompra:</td>
+																	<td class='step-details'>680,0000</td>
+																</tr>
+																<tr>
+																	<td class='status info' title='info' alt='info'><i class='mdi-action-info-outline'></i></td>
+																	<td class='timestamp'>12:52:43</td>
+																		<td class='step-name'>IOSPuntaVenta:</td>
+																	<td class='step-details'>700,0000</td>
+																</tr>
+																<tr>
+																	<td class='status info' title='info' alt='info'><i class='mdi-action-info-outline'></i></td>
+																	<td class='timestamp'>12:52:43</td>
+																		<td class='step-name'>PuntaCompra:</td>
+																	<td class='step-details'>680,0000</td>
+																</tr>
+																<tr>
+																	<td class='status info' title='info' alt='info'><i class='mdi-action-info-outline'></i></td>
+																	<td class='timestamp'>12:52:43</td>
+																		<td class='step-name'>PuntaVenta:</td>
+																	<td class='step-details'>700,0000</td>
+																</tr>
+																<tr>
+																	<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+																	<td class='timestamp'>12:52:43</td>
+																		<td class='step-name'>Validacion Existosa</td>
+																	<td class='step-details'>Comparacion valores Punta Compra: 680,0000</td>
+																</tr>
+																<tr>
+																	<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+																	<td class='timestamp'>12:52:46</td>
+																		<td class='step-name'>Validacion Existosa</td>
+																	<td class='step-details'>Comparacion valores Punta Venta: 700,0000</td>
+																</tr>
+																<tr>
+																	<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+																	<td class='timestamp'>12:52:53</td>
+																		<td class='step-name'>Ingresar pestaña forma de pago - Spot</td>
+																	<td class='step-details'><a href='C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/Ingresar pestaña forma de pago - Spot-300920191252.png' data-featherlight='image'><img class='report-img' src='file:///C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/Ingresar pestaña forma de pago - Spot-300920191252.png' /></a></td>
+																</tr>
+																<tr>
+																	<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+																	<td class='timestamp'>12:53:07</td>
+																		<td class='step-name'>Ingresar operacion spot - Limpieza forma de pago - Spot</td>
+																	<td class='step-details'><a href='C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/Ingresar operacion spot - Limpieza forma de pago - Spot-300920191253.png' data-featherlight='image'><img class='report-img' src='file:///C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/Ingresar operacion spot - Limpieza forma de pago - Spot-300920191253.png' /></a></td>
+																</tr>
+																<tr>
+																	<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+																	<td class='timestamp'>12:53:18</td>
+																		<td class='step-name'>Ingresar operacion spot - Forma de pago - Spot</td>
+																	<td class='step-details'><a href='C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/Ingresar operacion spot - Forma de pago - Spot-300920191253.png' data-featherlight='image'><img class='report-img' src='file:///C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/Ingresar operacion spot - Forma de pago - Spot-300920191253.png' /></a></td>
+																</tr>
+																<tr>
+																	<td class='status info' title='info' alt='info'><i class='mdi-action-info-outline'></i></td>
+																	<td class='timestamp'>12:53:22</td>
+																		<td class='step-name'>Fecha Entregamos</td>
+																	<td class='step-details'>Datos: 10-07-2019</td>
+																</tr>
+																<tr>
+																	<td class='status info' title='info' alt='info'><i class='mdi-action-info-outline'></i></td>
+																	<td class='timestamp'>12:53:22</td>
+																		<td class='step-name'>Fecha Recibimos</td>
+																	<td class='step-details'>Datos: 10-07-2019</td>
+																</tr>
+																<tr>
+																	<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+																	<td class='timestamp'>12:53:22</td>
+																		<td class='step-name'>Validacion de fecha es correcta</td>
+																	<td class='step-details'><a href='C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/Validacion de fecha es correcta-300920191253.png' data-featherlight='image'><img class='report-img' src='file:///C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/Validacion de fecha es correcta-300920191253.png' /></a></td>
+																</tr>
+																<tr>
+																	<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+																	<td class='timestamp'>12:53:22</td>
+																		<td class='step-name'>Comparación</td>
+																	<td class='step-details'>Datos: 10-07-2019 Menor o Igual a: 10-07-2019</td>
+																</tr>
+																<tr>
+																	<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+																	<td class='timestamp'>12:53:28</td>
+																		<td class='step-name'>Ingresar Pestaña Otros - Spot</td>
+																	<td class='step-details'><a href='C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/Ingresar Pestaña Otros - Spot-300920191253.png' data-featherlight='image'><img class='report-img' src='file:///C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/Ingresar Pestaña Otros - Spot-300920191253.png' /></a></td>
+																</tr>
+																<tr>
+																	<td class='status info' title='info' alt='info'><i class='mdi-action-info-outline'></i></td>
+																	<td class='timestamp'>12:53:32</td>
+																		<td class='step-name'>Agente</td>
+																	<td class='step-details'>Datos: FRANCISCO METTROZ</td>
+																</tr>
+																<tr>
+																	<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+																	<td class='timestamp'>12:53:32</td>
+																		<td class='step-name'>Validacion Existosa</td>
+																	<td class='step-details'>Agente concuerda con Agenten ingresado</td>
+																</tr>
+																<tr>
+																	<td class='status info' title='info' alt='info'><i class='mdi-action-info-outline'></i></td>
+																	<td class='timestamp'>12:53:32</td>
+																		<td class='step-name'>Tipo Comprobante</td>
+																	<td class='step-details'>Datos: FACTURA ELECTRONICA EXENTA</td>
+																</tr>
+																<tr>
+																	<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+																	<td class='timestamp'>12:53:32</td>
+																		<td class='step-name'>Validacion Existosa</td>
+																	<td class='step-details'>Tipo de comprobante es Factura Electronica Exenta</td>
+																</tr>
+																<tr>
+																	<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+																	<td class='timestamp'>12:53:33</td>
+																		<td class='step-name'>Ingresar Operación Spot - Informacion lista para enviar</td>
+																	<td class='step-details'><a href='C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/Ingresar Operación Spot - Informacion lista para enviar -300920191253.png' data-featherlight='image'><img class='report-img' src='file:///C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/Ingresar Operación Spot - Informacion lista para enviar -300920191253.png' /></a></td>
+																</tr>
+																<tr>
+																	<td class='status info' title='info' alt='info'><i class='mdi-action-info-outline'></i></td>
+																	<td class='timestamp'>12:53:46</td>
+																		<td class='step-name'>Folio</td>
+																	<td class='step-details'>Datos: 2690</td>
+																</tr>
+																<tr>
+																	<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+																	<td class='timestamp'>12:53:49</td>
+																		<td class='step-name'>Operación Spot Folio 2690</td>
+																	<td class='step-details'><a href='C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/Operación Spot Folio 2690-300920191253.png' data-featherlight='image'><img class='report-img' src='file:///C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/Operación Spot Folio 2690-300920191253.png' /></a></td>
+																</tr>
+																<tr>
+																	<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+																	<td class='timestamp'>12:54:13</td>
+																		<td class='step-name'>Ingreso Confirmación Spot</td>
+																	<td class='step-details'><a href='C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/Ingreso Confirmación Spot-300920191254.png' data-featherlight='image'><img class='report-img' src='file:///C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/Ingreso Confirmación Spot-300920191254.png' /></a></td>
+																</tr>
+																<tr>
+																	<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+																	<td class='timestamp'>12:54:23</td>
+																		<td class='step-name'>Ingreso Datos cliente</td>
+																	<td class='step-details'>17919279-9 FELIPE ARAVENA CONNELL (0)</td>
+																</tr>
+																<tr>
+																	<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+																	<td class='timestamp'>12:54:37</td>
+																		<td class='step-name'>Buscar folio 2690</td>
+																	<td class='step-details'><a href='C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/Buscar folio 2690-300920191254.png' data-featherlight='image'><img class='report-img' src='file:///C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/Buscar folio 2690-300920191254.png' /></a></td>
+																</tr>
+																<tr>
+																	<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+																	<td class='timestamp'>12:54:39</td>
+																		<td class='step-name'>Validación de Monto Ingresado</td>
+																	<td class='step-details'>Monto 1000 Es Igual a 1.000,0000</td>
+																</tr>
+																<tr>
+																	<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+																	<td class='timestamp'>12:54:45</td>
+																		<td class='step-name'>Se enviará a Facturación la Operación</td>
+																	<td class='step-details'><a href='C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/Se enviará a Facturación la Operación-300920191254.png' data-featherlight='image'><img class='report-img' src='file:///C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/Se enviará a Facturación la Operación-300920191254.png' /></a></td>
+																</tr>
+																<tr>
+																	<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+																	<td class='timestamp'>12:54:50</td>
+																		<td class='step-name'>Operación Ejecutada</td>
+																	<td class='step-details'><a href='C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/Operación Ejecutada-300920191254.png' data-featherlight='image'><img class='report-img' src='file:///C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/Operación Ejecutada-300920191254.png' /></a></td>
+																</tr>
+																<tr>
+																	<td class='status info' title='info' alt='info'><i class='mdi-action-info-outline'></i></td>
+																	<td class='timestamp'>12:54:56</td>
+																		<td class='step-name'>Datos confirmados, enviados a facturacion</td>
+																	<td class='step-details'></td>
+																</tr>
+																<tr>
+																	<td class='status info' title='info' alt='info'><i class='mdi-action-info-outline'></i></td>
+																	<td class='timestamp'>12:54:59</td>
+																		<td class='step-name'>Finalización confirmación operación spot</td>
+																	<td class='step-details'></td>
+																</tr>
+																<tr>
+																	<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+																	<td class='timestamp'>12:55:24</td>
+																		<td class='step-name'>Ingreso Gestión de Facturación - Movimientos a Facturar</td>
+																	<td class='step-details'><a href='C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/Ingreso Gestión de Facturación - Movimientos a Facturar-300920191255.png' data-featherlight='image'><img class='report-img' src='file:///C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/Ingreso Gestión de Facturación - Movimientos a Facturar-300920191255.png' /></a></td>
+																</tr>
+																<tr>
+																	<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+																	<td class='timestamp'>12:55:44</td>
+																		<td class='step-name'>Buscar en Grilla Movimientos por Folio 2690</td>
+																	<td class='step-details'><a href='C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/Buscar en Grilla Movimientos por Folio 2690-300920191255.png' data-featherlight='image'><img class='report-img' src='file:///C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/Buscar en Grilla Movimientos por Folio 2690-300920191255.png' /></a></td>
+																</tr>
+																<tr>
+																	<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+																	<td class='timestamp'>12:55:52</td>
+																		<td class='step-name'>Buscar en Grilla folio - 2690</td>
+																	<td class='step-details'><a href='C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/Buscar en Grilla folio - 2690-300920191255.png' data-featherlight='image'><img class='report-img' src='file:///C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/Buscar en Grilla folio - 2690-300920191255.png' /></a></td>
+																</tr>
+																<tr>
+																	<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+																	<td class='timestamp'>12:55:54</td>
+																		<td class='step-name'>Validación de Monto Ingresado</td>
+																	<td class='step-details'>Monto 640.56 Es Igual a 640.560</td>
+																</tr>
+																<tr>
+																	<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+																	<td class='timestamp'>12:56:00</td>
+																		<td class='step-name'>Desea facturar movimiento seleccionado</td>
+																	<td class='step-details'><a href='C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/Desea facturar movimiento seleccionado-300920191256.png' data-featherlight='image'><img class='report-img' src='file:///C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/Desea facturar movimiento seleccionado-300920191256.png' /></a></td>
+																</tr>
+																<tr>
+																	<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+																	<td class='timestamp'>12:56:06</td>
+																		<td class='step-name'>Confirmar Movimiento - Generación Comprobante</td>
+																	<td class='step-details'><a href='C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/Confirmar Movimiento - Generación Comprobante-300920191256.png' data-featherlight='image'><img class='report-img' src='file:///C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/Confirmar Movimiento - Generación Comprobante-300920191256.png' /></a></td>
+																</tr>
+																<tr>
+																	<td class='status info' title='info' alt='info'><i class='mdi-action-info-outline'></i></td>
+																	<td class='timestamp'>12:56:12</td>
+																		<td class='step-name'>Folio Abono</td>
+																	<td class='step-details'>123937</td>
+																</tr>
+																<tr>
+																	<td class='status info' title='info' alt='info'><i class='mdi-action-info-outline'></i></td>
+																	<td class='timestamp'>12:56:12</td>
+																		<td class='step-name'>Folio Cargo</td>
+																	<td class='step-details'>123938</td>
+																</tr>
+																<tr>
+																	<td class='status info' title='info' alt='info'><i class='mdi-action-info-outline'></i></td>
+																	<td class='timestamp'>12:56:12</td>
+																		<td class='step-name'>Comprobante</td>
+																	<td class='step-details'>174824</td>
+																</tr>
+																<tr>
+																	<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+																	<td class='timestamp'>12:56:26</td>
+																		<td class='step-name'>Ingreso Comprobante Facturación</td>
+																	<td class='step-details'><a href='C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/Ingreso Comprobante Facturación-300920191256.png' data-featherlight='image'><img class='report-img' src='file:///C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/Ingreso Comprobante Facturación-300920191256.png' /></a></td>
+																</tr>
+																<tr>
+																	<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+																	<td class='timestamp'>12:56:50</td>
+																		<td class='step-name'>Busqueda por comprobante174824</td>
+																	<td class='step-details'><a href='C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/Busqueda por comprobante174824-300920191256.png' data-featherlight='image'><img class='report-img' src='file:///C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/Busqueda por comprobante174824-300920191256.png' /></a></td>
+																</tr>
+																<tr>
+																	<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+																	<td class='timestamp'>12:56:52</td>
+																		<td class='step-name'>Validación de Monto Ingresado</td>
+																	<td class='step-details'>Monto 640.560 Es Igual a 640.560</td>
+																</tr>
+																<tr>
+																	<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+																	<td class='timestamp'>12:56:58</td>
+																		<td class='step-name'>Desea enviar comprobante seleccionado al DTE</td>
+																	<td class='step-details'><a href='C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/Desea enviar comprobante seleccionado al DTE-300920191256.png' data-featherlight='image'><img class='report-img' src='file:///C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/Desea enviar comprobante seleccionado al DTE-300920191256.png' /></a></td>
+																</tr>
+																<tr>
+																	<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+																	<td class='timestamp'>12:57:06</td>
+																		<td class='step-name'>El comprobante 174824 fue enviado con éxito</td>
+																	<td class='step-details'><a href='C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/El comprobante 174824 fue enviado con éxito-300920191257.png' data-featherlight='image'><img class='report-img' src='file:///C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/El comprobante 174824 fue enviado con éxito-300920191257.png' /></a></td>
+																</tr>
+																<tr>
+																	<td class='status info' title='info' alt='info'><i class='mdi-action-info-outline'></i></td>
+																	<td class='timestamp'>12:57:14</td>
+																		<td class='step-name'>Gestion de facturacion</td>
+																	<td class='step-details'>Datos enviados a DTE</td>
+																</tr>
+																<tr>
+																	<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+																	<td class='timestamp'>12:57:15</td>
+																		<td class='step-name'>Gestion de facturacion - Datos enviados a DTE</td>
+																	<td class='step-details'><a href='C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/Gestion de facturacion - Datos enviados a DTE-300920191257.png' data-featherlight='image'><img class='report-img' src='file:///C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/Gestion de facturacion - Datos enviados a DTE-300920191257.png' /></a></td>
+																</tr>
+																<tr>
+																	<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+																	<td class='timestamp'>12:57:44</td>
+																		<td class='step-name'>Ingreso Cuenta Inversión Cliente - Pestañana Certificar - Anular Movimientos</td>
+																	<td class='step-details'><a href='C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/Ingreso Cuenta Inversión Cliente - Pestañana Certificar - Anular Movimientos-300920191257.png' data-featherlight='image'><img class='report-img' src='file:///C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/Ingreso Cuenta Inversión Cliente - Pestañana Certificar - Anular Movimientos-300920191257.png' /></a></td>
+																</tr>
+																<tr>
+																	<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+																	<td class='timestamp'>12:58:06</td>
+																		<td class='step-name'>Busqueda por Folio Comprobante 174824</td>
+																	<td class='step-details'><a href='C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/Busqueda por Folio Comprobante 174824-300920191258.png' data-featherlight='image'><img class='report-img' src='file:///C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/Busqueda por Folio Comprobante 174824-300920191258.png' /></a></td>
+																</tr>
+																<tr>
+																	<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+																	<td class='timestamp'>12:58:11</td>
+																		<td class='step-name'>Validación de Monto Ingresado</td>
+																	<td class='step-details'>Monto 640.56 Es Igual a 640.560</td>
+																</tr>
+																<tr>
+																	<td class='status pass' title='pass' alt='pass'><i class='mdi-action-check-circle'></i></td>
+																	<td class='timestamp'>12:58:20</td>
+																		<td class='step-name'>Concepto- Compra</td>
+																	<td class='step-details'><a href='C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/Concepto- Compra-300920191258.png' data-featherlight='image'><img class='report-img' src='file:///C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/Concepto- Compra-300920191258.png' /></a></td>
+																</tr>
+																<tr>
+																	<td class='status error' title='error' alt='error'><i class='mdi-alert-error'></i></td>
+																	<td class='timestamp'>12:58:25</td>
+																		<td class='step-name'>Error: Gestion cuenta inversion</td>
+																	<td class='step-details'>Datos: Character array contains more than one decimal point.</td>
+																</tr>
+																<tr>
+																	<td class='status fail' title='fail' alt='fail'><i class='mdi-navigation-cancel'></i></td>
+																	<td class='timestamp'>12:58:25</td>
+																	<td class='step-details'>Caso fallado: variacion1</td>
+																</tr>
+																<tr>
+																	<td class='status fail' title='fail' alt='fail'><i class='mdi-navigation-cancel'></i></td>
+																	<td class='timestamp'>12:58:25</td>
+																	<td class='step-details'>Caso fallado: java.lang.AssertionError: expected [true] but found [false]</td>
+																</tr>
+																<tr>
+																	<td class='status fail' title='fail' alt='fail'><i class='mdi-navigation-cancel'></i></td>
+																	<td class='timestamp'>12:58:26</td>
+																	<td class='step-details'><a href='C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/variacion1.png' data-featherlight='image'><img class='report-img' src='file:///C:\Users\PBRAVO_EXT\git\SeleniumRobot/testsScreenshots/variacion1.png' /></a></td>
+																</tr>
+														</tbody>
+													</table>
+													<ul class='collapsible node-list' data-collapsible='accordion'>
+													</ul>
+												</div>
+											</div>
+										</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id='test-details-wrapper' class='col _addedCell2'>
+					<div class='contents'>
+						<div class='card-panel details-view'>
+							<h5 class='details-name'></h5>
+							<div class='step-filters right'>
+								<span class='btn-floating btn-small waves-effect waves-light blue' status='info' alt='info' title='info'><i class='mdi-action-info-outline'></i></span>
+								<span class='btn-floating btn-small waves-effect waves-light green' status='pass' alt='pass' title='pass'><i class='mdi-action-check-circle'></i></span>
+								<span class='btn-floating btn-small waves-effect waves-light red' status='fail' alt='fail' title='fail'><i class='mdi-navigation-cancel'></i></span>
+								<span class='btn-floating btn-small waves-effect waves-light red darken-4' status='fatal' alt='fatal' title='fatal'><i class='mdi-navigation-cancel'></i></span>
+								<span class='btn-floating btn-small waves-effect waves-light red lighten-2' status='error' alt='error' title='error'><i class='mdi-alert-error'></i></span>
+								<span class='btn-floating btn-small waves-effect waves-light orange' alt='warning' status='warning' title='warning'><i class='mdi-alert-warning'></i></span>
+								<span class='btn-floating btn-small waves-effect waves-light cyan' status='skip' alt='skip' title='skip'><i class='mdi-content-redo'></i></span>
+								<span class='btn-floating btn-small waves-effect waves-light grey darken-2' status='clear-step-filter' alt='Clear filters' title='Clear filters'><i class='mdi-content-clear'></i></span>
+							</div>
+							<div class='details-container'>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /tests -->
+			
+			<!-- categories -->
+			<!-- /categories -->
+			
+			<!-- exceptions -->
+			<!-- /exceptions -->
+			
+			<!-- testrunner logs -->
+			<!-- /testrunner logs -->
+			
+		</div>
+		<!-- /container -->
+		
+		<!-- test dashboard counts setting -->
+		<div id='test-count-setting' class='modal bottom-sheet'> 
+			<div class='modal-content'> 
+				<h5>Configurar el tipo de vista</h5> 
+				<input name='test-count-setting' type='radio' id='parentWithoutNodes' class='with-gap'> 
+				<label for='parentWithoutNodes'>Solo test padres</label> 
+				<br> 
+				<input name='test-count-setting' type='radio' id='parentWithoutNodesAndNodes' class='with-gap'> 
+				<label for='parentWithoutNodesAndNodes'>Test padres y test hijos</label> 
+				<br> 
+				<input name='test-count-setting' type='radio' id='childNodes' class='with-gap'> 
+				<label for='childNodes'>Únicamente test hijos</label> 
+			</div> 
+			<div class='modal-footer'> 
+				<a href='#!' class='modal-action modal-close waves-effect waves-green btn'>Guardar</a> 
+			</div> 
+		</div>
+		<!-- /test dashboard counts setting -->
+		
+		<!-- filter for step status -->
+		<div id='step-status-filter' class='modal bottom-sheet'> 
+			<div class='modal-content'> 
+				<h5>Seleccionar resultado</h5> 
+				<input checked class='filled-in' type='checkbox' id='step-dashboard-filter-pass'> 
+				<label for='step-dashboard-filter-pass'>Pass</label> 
+				<br> 
+				<input checked class='filled-in' type='checkbox' id='step-dashboard-filter-fail'> 
+				<label for='step-dashboard-filter-fail'>Fail</label> 
+				<br> 
+				<input checked class='filled-in' type='checkbox' id='step-dashboard-filter-fatal'> 
+				<label for='step-dashboard-filter-fatal'>Fatal</label> 
+				<br> 
+				<input checked class='filled-in' type='checkbox' id='step-dashboard-filter-error'> 
+				<label for='step-dashboard-filter-error'>Error</label> 
+				<br> 
+				<input checked class='filled-in' type='checkbox' id='step-dashboard-filter-warning'> 
+				<label for='step-dashboard-filter-warning'>Warning</label> 
+				<br> 
+				<input checked class='filled-in' type='checkbox' id='step-dashboard-filter-skip'> 
+				<label for='step-dashboard-filter-skip'>Skipped</label> 
+				<br> 
+				<input checked class='filled-in' type='checkbox' id='step-dashboard-filter-info'> 
+				<label for='step-dashboard-filter-info'>Info</label> 
+				<br> 
+				<input checked class='filled-in' type='checkbox' id='step-dashboard-filter-unknown'> 
+				<label for='step-dashboard-filter-unknown'>Unknown</label> 
+			</div>
+			<div class='modal-footer'> 
+				<a href='#!' class='modal-action modal-close waves-effect waves-green btn'>Guardar</a> 
+			</div> 
+		</div>
+		<!-- /filter for step status -->
+		
+		<script src='https://cdn.rawgit.com/anshooarora/extentreports/6032d73243ba4fe4fb8769eb9c315d4fdf16fe68/cdn/extent.js' type='text/javascript'></script>
+
+		<script>$(document).ready(function() { $('.logo span').html('ExtentReports'); });</script>
+		<script>
+				
+      
+        $(document).ready(function() {
+          
+        });
+      
+    
+		</script>
+	</body>
+</html>
