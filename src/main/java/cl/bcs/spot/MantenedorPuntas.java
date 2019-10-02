@@ -42,6 +42,12 @@ public class MantenedorPuntas extends MantenedorUtil {
 						.getAttribute(ConstantesSpotTags.TAG_TITLE));
 				m.setVenta(UtilesSelenium.findElement(By.xpath(ConstantesMantenedorPuntas.XPATH_VENTA_USD)).getText());
 
+				LOGGER.info("Valor Compra: " + m.getPuntaCompra());
+				LOGGER.info("Valor Venta: " + m.getPuntaVenta());
+				LOGGER.info("Monto USD: " + m.getMonto());
+				LOGGER.info("Compra USD: " + m.getCompra());
+				LOGGER.info("Venta USD: " + m.getVenta());
+
 				Session.getConfigDriver().waitForLoad();
 				UtilesExtentReport.captura("Mantenedor Puntas " + datos.getMonedaPrincipal()+ " - Datos");
 				Session.getConfigDriver().logger.log(LogStatus.INFO, "Valor Compra ", m.getPuntaCompra());
@@ -71,6 +77,15 @@ public class MantenedorPuntas extends MantenedorUtil {
 				m.setVentaMil(
 						UtilesSelenium.findElement(By.xpath(ConstantesMantenedorPuntas.XPATH_VENTA_EUR_MIL)).getText());
 
+				LOGGER.info("Valor Compra: " + m.getPuntaCompra());
+				LOGGER.info("Valor Venta: " + m.getPuntaVenta());
+				LOGGER.info("Monto EUR: " + m.getMonto());
+				LOGGER.info("Compra EUR: " + m.getCompra());
+				LOGGER.info("Venta EUR: " + m.getVenta());
+				LOGGER.info("Monto EUR 1000: " + m.getMonto());
+				LOGGER.info("Compra EUR 1000: " + m.getCompra());
+				LOGGER.info("Venta EUR 1000: " + m.getVenta());
+				
 				Session.setVariables(m);
 				Session.getConfigDriver().waitForLoad();
 				UtilesExtentReport.captura("Mantenedor Puntas "+ datos.getMonedaPrincipal()+" - Datos");

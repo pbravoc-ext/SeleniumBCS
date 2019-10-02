@@ -28,8 +28,8 @@ public class Session {
 	private static String fechaHasta;
 	private static String montoEq;
 	private static String montoSecundario;
+	private static String montoPrincipal;
 	private static int variacion;
-
 	private static FactoryWebDriver configDriver;
 	private static SpotExcel spotinfo;
 	private static VariablesUtil variables;
@@ -174,6 +174,14 @@ public class Session {
 
 	public static void setMontoSecundario(String montoSecundario) {
 		Session.montoSecundario = montoSecundario;
+	}
+
+	public static String getMontoPrincipal() {
+		return montoPrincipal;
+	}
+
+	public static void setMontoPrincipal(String montoPrincipal) {
+		Session.montoPrincipal = montoPrincipal;
 	}
 
 	public static int getVariacion() {

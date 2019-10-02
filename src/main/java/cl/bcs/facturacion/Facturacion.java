@@ -6,6 +6,8 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import com.relevantcodes.extentreports.LogStatus;
+
+import cl.bcs.application.constantes.util.Constantes;
 import cl.bcs.application.constantes.util.ConstantesFacturacion;
 import cl.bcs.application.constantes.util.ConstantesSpot;
 import cl.bcs.application.factory.util.Session;
@@ -64,26 +66,38 @@ public class Facturacion extends SpotUtiles{
 			UtilesExtentReport.captura("Buscar en Grilla Movimientos por Folio " + Session.getFolio());
 			Session.getConfigDriver().waitForLoad();
 
-			if (datos.getInstrumento().equals("ARBITRAJE INTERBANCARIO")) {
+			if (datos.getInstrumento().equalsIgnoreCase(Constantes.INSTRUMENTO_ARB_INTER)) {
 
-				if (datos.getCuentaInversion().equals("NO")) {
-					UtilesSelenium.findElement(By.xpath(
-							"//*[@id='grid-movimientos-facturar']/span/div[2]/div[4]/table//span[@ng-bind='dataItem.AccionTipoOperacion' and contains(text(),"
-									+ ConstantesFacturacion.COMPRA + ")]"))
+				if (datos.getCuentaInversion().equalsIgnoreCase(Constantes.NO)) {
+					UtilesSelenium.findElement(By.xpath(ConstantesFacturacion.XPATHERE_COMPARAR_OPERACION
+									+ Constantes.COMPRA + Constantes.XPATHERE_OUT))
 							.click();
 					Session.getConfigDriver().waitForLoad();
 					
 					UtilesExtentReport.captura("Buscar en Grilla COMPRA MESA SPOT ");
+
 					
 					//Validación en Grilla Montos
-					grilla = UtilesSelenium.findElement(By.xpath("//*[@id='grid-movimientos-facturar']//span[@bcs-bind='dataItem.Monto']")).getText();
-					System.out.println(grilla);
-					if(SpotUtiles.validacionValorGrilla(datos.getMontoPrincipal(), grilla)) {
+					grilla = UtilesSelenium.findElement(By.xpath(ConstantesFacturacion.XPATH_MONTO_GRILLA_MOV_FACTURACION)).getText();
+					LOGGER.info(grilla);
+					
+					Session.getConfigDriver().waitForLoad();
+					LOGGER.info("=======================================");
+					LOGGER.info(Session.getMontoPrincipal());
+					LOGGER.info(SpotUtiles.formatoMontos(Session.getMontoPrincipal()));
+					LOGGER.info(SpotUtiles.formatoBigDecimal(Session.getMontoPrincipal()));
+					LOGGER.info("=======================================");
+					LOGGER.info(grilla);
+					LOGGER.info(SpotUtiles.formatoMontos(grilla));
+					LOGGER.info(SpotUtiles.formatoBigDecimal(grilla));
+					LOGGER.info("=======================================");
+					
+					if(SpotUtiles.validacionValorGrilla(Session.getMontoPrincipal(), grilla)) {
 						//Validacion correcta 
-						Session.getConfigDriver().logger.log(LogStatus.PASS, "Validación de Monto Ingresado " , "Monto "+datos.getMontoPrincipal()+ " Es Igual a " + grilla);
+						Session.getConfigDriver().logger.log(LogStatus.PASS, "Validación de Monto Ingresado " , "Monto "+Session.getMontoPrincipal()+ " Es Igual a " + grilla);
 					}else {
 						//error
-						Session.getConfigDriver().logger.log(LogStatus.WARNING, "Validación de Monto Ingresado " , "Monto "+datos.getMontoPrincipal()+ " Es Distinto a " + grilla);
+						Session.getConfigDriver().logger.log(LogStatus.WARNING, "Validación de Monto Ingresado " , "Monto "+Session.getMontoPrincipal()+ " Es Distinto a " + grilla);
 									}
 					
 					// Generar
@@ -106,9 +120,9 @@ public class Facturacion extends SpotUtiles{
 							.findElement(By.xpath(ConstantesFacturacion.XPATH_LABEL_COMPROBANTE_ARB_SCI)).getText();
 					Session.getConfigDriver().waitForLoad();
 
-					abonoOp = SpotUtiles.folio(abono);
-					movimientoEgresoOp = SpotUtiles.folio(movimientoEgreso);
-					comprobanteVentaOp = SpotUtiles.folio(comprobanteVenta);
+					abonoOp = SpotUtiles.onlyNumbers(abono);
+					movimientoEgresoOp = SpotUtiles.onlyNumbers(movimientoEgreso);
+					comprobanteVentaOp = SpotUtiles.onlyNumbers(comprobanteVenta);
 					if (datos.getOperacion().toUpperCase().equals("COMPRA")) {
 						Session.getConfigDriver().logger.log(LogStatus.INFO, "Comprobante Cargo" , abonoOp);
 						Session.getConfigDriver().logger.log(LogStatus.INFO, "Comprobante Compra" , comprobanteVentaOp);
@@ -126,27 +140,39 @@ public class Facturacion extends SpotUtiles{
 					// Aceptar
 					UtilesSelenium.findElement(By.xpath(ConstantesFacturacion.XPATH_BTN_ACEPTARINFO)).click();
 					Session.getConfigDriver().waitForLoad();
-					UtilesSelenium.findElement(By.xpath(
-							"//*[@id='grid-movimientos-facturar']/span/div[2]/div[4]/table//span[@ng-bind='dataItem.AccionTipoOperacion' and contains(text(),"
-									+ ConstantesFacturacion.VENTA + ")]"))
+					UtilesSelenium.findElement(By.xpath(ConstantesFacturacion.XPATHERE_COMPARAR_OPERACION
+									+ Constantes.VENTA + Constantes.XPATHERE_OUT))
 							.click();
 					Session.getConfigDriver().waitForLoad();
 					UtilesExtentReport.captura("Buscar en Grilla VENTA MESA SPOT ");
+					
 					//Validación en Grilla Montos
-					grilla = UtilesSelenium.findElement(By.xpath("//*[@id='grid-movimientos-facturar']//span[@bcs-bind='dataItem.Monto']")).getText();
-					System.out.println(grilla);
-					if(SpotUtiles.validacionValorGrilla(datos.getMontoPrincipal(), grilla)) {
+					grilla = UtilesSelenium.findElement(By.xpath(ConstantesFacturacion.XPATH_MONTO_GRILLA_MOV_FACTURACION)).getText();
+					LOGGER.info(grilla);
+					
+					Session.getConfigDriver().waitForLoad();
+					LOGGER.info("=======================================");
+					LOGGER.info(Session.getMontoPrincipal());
+					LOGGER.info(SpotUtiles.formatoMontos(Session.getMontoPrincipal()));
+					LOGGER.info(SpotUtiles.formatoBigDecimal(Session.getMontoPrincipal()));
+					LOGGER.info("=======================================");
+					LOGGER.info(grilla);
+					LOGGER.info(SpotUtiles.formatoMontos(grilla));
+					LOGGER.info(SpotUtiles.formatoBigDecimal(grilla));
+					LOGGER.info("=======================================");
+					
+					if(SpotUtiles.validacionValorGrilla(Session.getMontoPrincipal(), grilla)) {
 						//Validacion correcta 
-						Session.getConfigDriver().logger.log(LogStatus.PASS, "Validación de Monto Ingresado " , "Monto "+datos.getMontoPrincipal()+ " Es Igual a " + grilla);
+						Session.getConfigDriver().logger.log(LogStatus.PASS, "Validación de Monto Ingresado " , "Monto "+Session.getMontoPrincipal()+ " Es Igual a " + grilla);
 					}else {
 						//error
-						Session.getConfigDriver().logger.log(LogStatus.WARNING, "Validación de Monto Ingresado " , "Monto "+datos.getMontoPrincipal()+ " Es Distinto a " + grilla);
+						Session.getConfigDriver().logger.log(LogStatus.WARNING, "Validación de Monto Ingresado " , "Monto "+Session.getMontoPrincipal()+ " Es Distinto a " + grilla);
 									}
 
 					// Generar
 					UtilesSelenium.findElement(By.xpath(ConstantesFacturacion.XPATH_BTN_GENERARMOV)).click();
 					Session.getConfigDriver().waitForLoad();
-					UtilesExtentReport.captura("¿Desea facturar movimiento(s) seleccionado(s)?");
+					UtilesExtentReport.captura("Desea facturar movimiento seleccionado");
 
 					// Confirmar
 					UtilesSelenium.findElement(By.xpath(ConstantesFacturacion.XPATH_BTN_CONFIRMARMOV)).click();
@@ -162,11 +188,11 @@ public class Facturacion extends SpotUtiles{
 							.findElement(By.xpath(ConstantesFacturacion.XPATH_LABEL_COMPROBANTE_ARB_SCI)).getText();
 					Session.getConfigDriver().waitForLoad();
 
-					cargoOp = SpotUtiles.folio(abono);
-					movimientoIngresoOp = SpotUtiles.folio(movimientoIngreso);
-					comprobanteOp = SpotUtiles.folio(comprobante);
+					cargoOp = SpotUtiles.onlyNumbers(abono);
+					movimientoIngresoOp = SpotUtiles.onlyNumbers(movimientoIngreso);
+					comprobanteOp = SpotUtiles.onlyNumbers(comprobante);
 					
-					if (datos.getOperacion().toUpperCase().equals("COMPRA")) {
+					if (datos.getOperacion().equalsIgnoreCase(Constantes.COMPRA)) {
 						Session.getConfigDriver().logger.log(LogStatus.INFO, "Comprobante Abono" , cargoOp);
 						Session.getConfigDriver().logger.log(LogStatus.INFO, "Comprobante Venta" , comprobanteOp);
 						Session.getConfigDriver().logger.log(LogStatus.INFO, "Movimiento Egreso" , movimientoIngresoOp);
@@ -185,22 +211,32 @@ public class Facturacion extends SpotUtiles{
 
 				} else {     
 					// con cuenta inversion  y con arbitraje
-					UtilesSelenium.findElement(By.xpath(
-							"//*[@id='grid-movimientos-facturar']/span/div[2]/div[4]/table//span[@ng-bind='dataItem.AccionTipoOperacion' and contains(text(),"
-									+ ConstantesFacturacion.COMPRA + ")]"))
+					UtilesSelenium.findElement(By.xpath(ConstantesFacturacion.XPATHERE_COMPARAR_OPERACION
+									+ Constantes.COMPRA + Constantes.XPATHERE_OUT))
 							.click();
 					Session.getConfigDriver().waitForLoad();
 					
 					UtilesExtentReport.captura("Buscar en Grilla COMPRA MESA SPOT ");
-					grilla = UtilesSelenium.findElement(By.xpath("//*[@id='grid-movimientos-facturar']//span[@bcs-bind='dataItem.Monto']")).getText();
-					System.out.println(grilla);
+					grilla = UtilesSelenium.findElement(By.xpath(ConstantesFacturacion.XPATH_MONTO_GRILLA_MOV_FACTURACION)).getText();
+					LOGGER.info(grilla);
 					
-					if(SpotUtiles.validacionValorGrilla(Session.getMontoSecundario(), grilla)) {
+					Session.getConfigDriver().waitForLoad();
+					LOGGER.info("=======================================");
+					LOGGER.info(Session.getMontoSecundario());
+					LOGGER.info(SpotUtiles.formatoMontos(Session.getMontoSecundario()));
+					LOGGER.info(SpotUtiles.formatoBigDecimal(Session.getMontoSecundario()));
+					LOGGER.info("=======================================");
+					LOGGER.info(grilla);
+					LOGGER.info(SpotUtiles.formatoMontos(grilla));
+					LOGGER.info(SpotUtiles.formatoBigDecimal(grilla));
+					LOGGER.info("=======================================");
+					
+					if(SpotUtiles.validacionValorGrilla2(Session.getMontoSecundario(), grilla)) {
 						//Validacion correcta 
-						Session.getConfigDriver().logger.log(LogStatus.PASS, "Validación de Monto Ingresado " , "Monto "+datos.getMontoPrincipal()+ " Es Igual a " + grilla);
+						Session.getConfigDriver().logger.log(LogStatus.PASS, "Validación de Monto Ingresado " , "Monto "+Session.getMontoSecundario()+ " Es Igual a " + grilla);
 					}else {
 						//error
-						Session.getConfigDriver().logger.log(LogStatus.WARNING, "Validación de Monto Ingresado " , "Monto "+datos.getMontoPrincipal()+ " Es Distinto a " + grilla);
+						Session.getConfigDriver().logger.log(LogStatus.WARNING, "Validación de Monto Ingresado " , "Monto "+Session.getMontoSecundario()+ " Es Distinto a " + grilla);
 									}
 
 					// Generar
@@ -220,10 +256,10 @@ public class Facturacion extends SpotUtiles{
 							.findElement(By.xpath(ConstantesFacturacion.XPATH_LABEL_COMPROBANTE_ARB)).getText();
 					Session.getConfigDriver().waitForLoad();
 
-					abonoOp = SpotUtiles.folio(abono);
-					comprobanteVentaOp = SpotUtiles.folio(comprobanteVenta);
+					abonoOp = SpotUtiles.onlyNumbers(abono);
+					comprobanteVentaOp = SpotUtiles.onlyNumbers(comprobanteVenta);
 					
-					if (datos.getOperacion().toUpperCase().equals("COMPRA")) {
+					if (datos.getOperacion().equalsIgnoreCase(Constantes.COMPRA)) {
 						Session.getConfigDriver().logger.log(LogStatus.INFO, "Comprobante Abono" , abonoOp);
 						Session.getConfigDriver().logger.log(LogStatus.INFO, "Comprobante Compra" , comprobanteVentaOp);
 						//Session.getConfigDriver().logger.log(LogStatus.INFO, "Movimiento Ingreso" , movimientoEgresoOp);
@@ -239,19 +275,36 @@ public class Facturacion extends SpotUtiles{
 					UtilesSelenium.findElement(By.xpath(ConstantesFacturacion.XPATH_BTN_ACEPTARINFO)).click();
 					Session.getConfigDriver().waitForLoad();
 
-					UtilesSelenium.findElement(By.xpath("//*[@id='grid-movimientos-facturar']/span/div[2]/div[4]/table//span[@ng-bind='dataItem.AccionTipoOperacion' and contains(text(),"
-									+ ConstantesFacturacion.VENTA + ")]"))
+					UtilesSelenium.findElement(By.xpath(ConstantesFacturacion.XPATHERE_COMPARAR_OPERACION
+									+ Constantes.VENTA + Constantes.XPATHERE_OUT))
 							.click();
 					Session.getConfigDriver().waitForLoad();
 					UtilesExtentReport.captura("Buscar en Grilla VENTA MESA SPOT ");
-					grilla = UtilesSelenium.findElement(By.xpath("//*[@id='grid-movimientos-facturar']//span[@bcs-bind='dataItem.Monto']")).getText();
-					System.out.println(grilla);
-					if(SpotUtiles.validacionValorGrilla(datos.getMontoPrincipal(), grilla)) {
+					
+					grilla = UtilesSelenium.findElement(By.xpath(ConstantesFacturacion.XPATH_MONTO_GRILLA_MOV_FACTURACION)).getText();
+				
+					
+					Session.getConfigDriver().waitForLoad();
+					LOGGER.info("=======================================");
+					LOGGER.info(Session.getMontoPrincipal());
+					LOGGER.info(SpotUtiles.formatoMontos(Session.getMontoPrincipal()));
+					LOGGER.info(SpotUtiles.formatoBigDecimal(Session.getMontoPrincipal()));
+					LOGGER.info("=======================================");
+					LOGGER.info(grilla);
+					LOGGER.info(SpotUtiles.formatoMontos(grilla));
+					LOGGER.info(SpotUtiles.formatoBigDecimal(grilla));
+					LOGGER.info("=======================================");
+					
+					if(SpotUtiles.validacionValorGrilla2(Session.getMontoPrincipal(), grilla)) {
 						//Validacion correcta 
-						Session.getConfigDriver().logger.log(LogStatus.PASS, "Validación de Monto Ingresado " , "Monto "+datos.getMontoPrincipal()+ " Es Igual a " + grilla);
+						Session.getConfigDriver().logger.log(LogStatus.PASS, "Validación de Monto Ingresado " , "Monto "+Session.getMontoPrincipal()+ " Es Igual a " + grilla);
+						LOGGER.info("Validación de Monto Ingresado Exitosa" );
 					}else {
 						//error
-						Session.getConfigDriver().logger.log(LogStatus.WARNING, "Validación de Monto Ingresado " , "Monto "+datos.getMontoPrincipal()+ " Es Distinto a " + grilla);
+						Session.getConfigDriver().logger.log(LogStatus.WARNING, "Validación de Monto Ingresado " , "Monto "+Session.getMontoPrincipal()+ " Es Distinto a " + grilla);
+						
+						LOGGER.info("Validación de Monto Ingresado Fallida" );
+						
 									}
 					
 					// Generar
@@ -270,11 +323,11 @@ public class Facturacion extends SpotUtiles{
 							.findElement(By.xpath(ConstantesFacturacion.XPATH_LABEL_COMPROBANTE_ARB)).getText();
 					Session.getConfigDriver().waitForLoad();
 
-					cargoOp = SpotUtiles.folio(cargo);
-					comprobanteOp = SpotUtiles.folio(comprobante);
+					cargoOp = SpotUtiles.onlyNumbers(cargo);
+					comprobanteOp = SpotUtiles.onlyNumbers(comprobante);
 					
 					
-					if (datos.getOperacion().toUpperCase().equals("COMPRA")) {
+					if (datos.getOperacion().equalsIgnoreCase(Constantes.COMPRA)) {
 						Session.getConfigDriver().logger.log(LogStatus.INFO, "Comprobante Cargo" , cargoOp);
 						Session.getConfigDriver().logger.log(LogStatus.INFO, "Comprobante Venta" , comprobanteOp);
 						//Session.getConfigDriver().logger.log(LogStatus.INFO, "Movimiento Egreso" , movimientoIngresoOp);
@@ -299,27 +352,46 @@ public class Facturacion extends SpotUtiles{
 				Session.setMovimientoEgreso(movimientoEgresoOp);
 				Session.setMovimientoIngreso(movimientoIngresoOp);
 				Session.getConfigDriver().waitForLoad();
+				
+				
+				LOGGER.info("=======================================");
+				LOGGER.info(Session.getComprobanteVenta());
+				LOGGER.info("=======================================");
+				
+				LOGGER.info("=======================================");
+				LOGGER.info(Session.getComprobante());
+			
+				LOGGER.info("=======================================");
+				
 
 			} else {
+				Session.getConfigDriver().waitForLoad();
 				//Sin Arbitraje
-				UtilesSelenium.findElement(By.xpath(
-						"//*[@id='grid-movimientos-facturar']/span/div[2]/div[4]/table//span[@ng-bind='dataItem.FolioTransaccion' and contains(text(),"
-								+ Session.getFolio() + ")]"))
+				UtilesSelenium.findElement(By.xpath(ConstantesFacturacion.XPATHERE_COMPARAR_FOLIO
+								+ Session.getFolio() + Constantes.XPATHERE_OUT))
 						.click();
 				Session.getConfigDriver().waitForLoad();
 				UtilesExtentReport.captura("Buscar en Grilla folio - " + Session.getFolio());
-				grilla = UtilesSelenium.findElement(By.xpath("//*[@id='grid-movimientos-facturar']//span[@bcs-bind='dataItem.Monto']")).getText();
-				System.out.println(grilla);
+				grilla = UtilesSelenium.findElement(By.xpath(ConstantesFacturacion.XPATH_MONTO_GRILLA_MOV_FACTURACION)).getText();
+				LOGGER.info(grilla);
 				
-				LOGGER.info("Monto Ingresado: " + datos.getMontoSecundario());
-				LOGGER.info("Monto Grilla " + grilla);
+				Session.getConfigDriver().waitForLoad();
+				LOGGER.info("=======================================");
+				LOGGER.info(Session.getMontoSecundario());
+				LOGGER.info(SpotUtiles.formatoMontos(Session.getMontoSecundario()));
+				LOGGER.info(SpotUtiles.formatoBigDecimal(Session.getMontoSecundario()));
+				LOGGER.info("=======================================");
+				LOGGER.info(grilla);
+				LOGGER.info(SpotUtiles.formatoMontos(grilla));
+				LOGGER.info(SpotUtiles.formatoBigDecimal(grilla));
+				LOGGER.info("=======================================");
 				
-				if(SpotUtiles.validacionValorGrilla(datos.getMontoSecundario(), grilla)) {
+				if(SpotUtiles.validacionValorGrilla2(Session.getMontoSecundario(), grilla)) {
 					//Validacion correcta 
-					Session.getConfigDriver().logger.log(LogStatus.PASS, "Validación de Monto Ingresado " , "Monto "+ formatoBigDecimal(datos.getMontoSecundario())+ " Es Igual a " + formatoBigDecimal2(grilla));
+					Session.getConfigDriver().logger.log(LogStatus.PASS, "Validación de Monto Ingresado " , "Monto "+Session.getMontoSecundario()+ " Es Igual a " + formatoBigDecimal2(grilla));
 				}else {
 					//error
-					Session.getConfigDriver().logger.log(LogStatus.WARNING, "Validación de Monto Ingresado " , "Monto "+formatoBigDecimal(datos.getMontoSecundario())+ " Es Distinto a " +formatoBigDecimal2(grilla));
+					Session.getConfigDriver().logger.log(LogStatus.WARNING, "Validación de Monto Ingresado " , "Monto "+Session.getMontoSecundario()+ " Es Distinto a " +formatoBigDecimal2(grilla));
 								}
 
 				// Generar
@@ -337,23 +409,23 @@ public class Facturacion extends SpotUtiles{
 				cargo = UtilesSelenium.findElement(By.xpath(ConstantesFacturacion.XPATH_LABEL_CARGO)).getText();
 				comprobante = UtilesSelenium.findElement(By.xpath(ConstantesFacturacion.XPATH_LABEL_COMPROBANTE_CCI))
 						.getText();
-				abonoOp = SpotUtiles.folio(abono);
-				cargoOp = SpotUtiles.folio(cargo);
-				comprobanteOp = SpotUtiles.folio(comprobante);
+				abonoOp = SpotUtiles.onlyNumbers(abono);
+				cargoOp = SpotUtiles.onlyNumbers(cargo);
+				comprobanteOp = SpotUtiles.onlyNumbers(comprobante);
 				Session.getConfigDriver().logger.log(LogStatus.INFO, "Folio Abono" , abonoOp);
 				Session.getConfigDriver().logger.log(LogStatus.INFO, "Folio Cargo" , cargoOp);
 				LOGGER.info("Abono: " + abonoOp);
 				LOGGER.info("Cargo: " + cargoOp);
-				if (datos.getCuentaInversion().equals("NO")) {
+				if (datos.getCuentaInversion().equalsIgnoreCase(Constantes.NO)) {
 					movimientoIngreso = UtilesSelenium.findElement(By.xpath(ConstantesFacturacion.XPATH_LABEL_INGRESO))
 							.getText();
 					movimientoEgreso = UtilesSelenium.findElement(By.xpath(ConstantesFacturacion.XPATH_LABEL_EGRESO))
 							.getText();
 					comprobante = UtilesSelenium
 							.findElement(By.xpath(ConstantesFacturacion.XPATH_LABEL_COMPROBANTE_SCI)).getText();
-					comprobanteOp = SpotUtiles.folio(comprobante);
-					movimientoIngresoOp = SpotUtiles.folio(movimientoIngreso);
-					movimientoEgresoOp = SpotUtiles.folio(movimientoEgreso);
+					comprobanteOp = SpotUtiles.onlyNumbers(comprobante);
+					movimientoIngresoOp = SpotUtiles.onlyNumbers(movimientoIngreso);
+					movimientoEgresoOp = SpotUtiles.onlyNumbers(movimientoEgreso);
 					
 					Session.getConfigDriver().logger.log(LogStatus.INFO, "Movimiento Ingreso" , movimientoIngresoOp);
 					Session.getConfigDriver().logger.log(LogStatus.INFO, "Movimiento Egreso" , movimientoEgresoOp);
@@ -396,19 +468,31 @@ public class Facturacion extends SpotUtiles{
 				Session.getConfigDriver().waitForLoad();
 
 				
-				UtilesSelenium.findElement(By.xpath(ConstantesFacturacion.XPATH_COMPARARFOLIOFAC + comprobanteOp
-						+ ConstantesFacturacion.XPATH_COMPARARFOLIOFA2C)).click();
+				UtilesSelenium.findElement(By.xpath(ConstantesFacturacion.XPATHERE_COMPARAR_FOLIO_FAC + comprobanteOp
+						+ Constantes.XPATHERE_OUT)).click();
 				Session.getConfigDriver().waitForLoad();
 				UtilesExtentReport.captura("Busqueda por comprobante" + comprobanteOp);
 				
-				grilla = UtilesSelenium.findElement(By.xpath("//*[@id='grid-comprobantes-facturacion']//span[@bcs-bind='dataItem.Monto']")).getText();
-				System.out.println(grilla);
-				if(SpotUtiles.validacionValorGrilla(datos.getMontoPrincipal(), grilla)) {
+				grilla = UtilesSelenium.findElement(By.xpath(ConstantesFacturacion.XPATH_MONTO_GRILLA_COMP_FACTURACION)).getText();
+				LOGGER.info(grilla);
+				
+				Session.getConfigDriver().waitForLoad();
+				LOGGER.info("=======================================");
+				LOGGER.info(Session.getMontoPrincipal());
+				LOGGER.info(SpotUtiles.formatoMontos(Session.getMontoPrincipal()));
+				LOGGER.info(SpotUtiles.formatoBigDecimal(Session.getMontoPrincipal()));
+				LOGGER.info("=======================================");
+				LOGGER.info(grilla);
+				LOGGER.info(SpotUtiles.formatoMontos(grilla));
+				LOGGER.info(SpotUtiles.formatoBigDecimal(grilla));
+				LOGGER.info("=======================================");
+				
+				if(SpotUtiles.validacionValorGrilla2(Session.getMontoPrincipal(), grilla)) {
 					//Validacion correcta 
-					Session.getConfigDriver().logger.log(LogStatus.PASS, "Validación de Monto Ingresado " , "Monto "+datos.getMontoPrincipal()+ " Es Igual a " + grilla);
+					Session.getConfigDriver().logger.log(LogStatus.PASS, "Validación de Monto Ingresado " , "Monto "+Session.getMontoPrincipal()+ " Es Igual a " + grilla);
 				}else {
 					//error
-					Session.getConfigDriver().logger.log(LogStatus.WARNING, "Validación de Monto Ingresado " , "Monto "+datos.getMontoPrincipal()+ " Es Distinto a " + grilla);
+					Session.getConfigDriver().logger.log(LogStatus.WARNING, "Validación de Monto Ingresado " , "Monto "+Session.getMontoPrincipal()+ " Es Distinto a " + grilla);
 								}
 
 				// Enviar a DTE.
@@ -431,19 +515,31 @@ public class Facturacion extends SpotUtiles{
 				Session.getConfigDriver().waitForLoad();
 				
 
-				UtilesSelenium.findElement(By.xpath(ConstantesFacturacion.XPATH_COMPARARFOLIOFAC + comprobanteVentaOp
-						+ ConstantesFacturacion.XPATH_COMPARARFOLIOFA2C)).click();
+				UtilesSelenium.findElement(By.xpath(ConstantesFacturacion.XPATHERE_COMPARAR_FOLIO_FAC + comprobanteVentaOp
+						+ Constantes.XPATHERE_OUT)).click();
 				Session.getConfigDriver().waitForLoad();
-				UtilesExtentReport.captura("Busqueda por comprobante" + comprobanteOp);
+				UtilesExtentReport.captura("Busqueda por comprobante" + comprobanteVentaOp);
 				
-				grilla = UtilesSelenium.findElement(By.xpath("//*[@id='grid-comprobantes-facturacion']//span[@bcs-bind='dataItem.Monto']")).getText();
-				System.out.println(grilla);
-				if(SpotUtiles.validacionValorGrilla(datos.getMontoPrincipal(), grilla)) {
+				grilla = UtilesSelenium.findElement(By.xpath(ConstantesFacturacion.XPATH_MONTO_GRILLA_COMP_FACTURACION)).getText();
+				LOGGER.info(grilla);
+				
+				Session.getConfigDriver().waitForLoad();
+				LOGGER.info("=======================================");
+				LOGGER.info(Session.getMontoSecundario());
+				LOGGER.info(SpotUtiles.formatoMontos(Session.getMontoSecundario()));
+				LOGGER.info(SpotUtiles.formatoBigDecimal(Session.getMontoSecundario()));
+				LOGGER.info("=======================================");
+				LOGGER.info(grilla);
+				LOGGER.info(SpotUtiles.formatoMontos(grilla));
+				LOGGER.info(SpotUtiles.formatoBigDecimal(grilla));
+				LOGGER.info("=======================================");
+				
+				if(SpotUtiles.validacionValorGrilla2(Session.getMontoPrincipal(), grilla)) {
 					//Validacion correcta 
-					Session.getConfigDriver().logger.log(LogStatus.PASS, "Validación de Monto Ingresado " , "Monto "+datos.getMontoPrincipal()+ " Es Igual a " + grilla);
+					Session.getConfigDriver().logger.log(LogStatus.PASS, "Validación de Monto Ingresado " , "Monto "+Session.getMontoSecundario()+ " Es Igual a " + grilla);
 				}else {
 					//error
-					Session.getConfigDriver().logger.log(LogStatus.WARNING, "Validación de Monto Ingresado " , "Monto "+datos.getMontoPrincipal()+ " Es Distinto a " + grilla);
+					Session.getConfigDriver().logger.log(LogStatus.WARNING, "Validación de Monto Ingresado " , "Monto "+Session.getMontoSecundario()+ " Es Distinto a " + grilla);
 								}
 				
 
@@ -468,14 +564,26 @@ public class Facturacion extends SpotUtiles{
 						.sendKeys(ConstantesSpot.SUB_ZEROS + comprobanteOp + Keys.ENTER);
 				Session.getConfigDriver().waitForLoad();
 
-				UtilesSelenium.findElement(By.xpath(ConstantesFacturacion.XPATH_COMPARARFOLIOFAC + comprobanteOp
-						+ ConstantesFacturacion.XPATH_COMPARARFOLIOFA2C)).click();
+				UtilesSelenium.findElement(By.xpath(ConstantesFacturacion.XPATHERE_COMPARAR_FOLIO_FAC + comprobanteOp
+						+ Constantes.XPATHERE_OUT)).click();
 				Session.getConfigDriver().waitForLoad();
 				UtilesExtentReport.captura("Busqueda por comprobante" + comprobanteOp);
 				
-				grilla = UtilesSelenium.findElement(By.xpath("//*[@id='grid-comprobantes-facturacion']//span[@bcs-bind='dataItem.Monto']")).getText();
-				System.out.println(grilla);
-				if(SpotUtiles.validacionValorGrilla(Session.getMontoSecundario(), grilla)) {
+				grilla = UtilesSelenium.findElement(By.xpath(ConstantesFacturacion.XPATH_MONTO_GRILLA_COMP_FACTURACION)).getText();
+				LOGGER.info(grilla);
+				
+				Session.getConfigDriver().waitForLoad();
+				LOGGER.info("=======================================");
+				LOGGER.info(Session.getMontoSecundario());
+				LOGGER.info(SpotUtiles.formatoMontos(Session.getMontoSecundario()));
+				LOGGER.info(SpotUtiles.formatoBigDecimal(Session.getMontoSecundario()));
+				LOGGER.info("=======================================");
+				LOGGER.info(grilla);
+				LOGGER.info(SpotUtiles.formatoMontos(grilla));
+				LOGGER.info(SpotUtiles.formatoBigDecimal(grilla));
+				LOGGER.info("=======================================");
+				
+				if(SpotUtiles.validacionValorGrilla2(Session.getMontoSecundario(), grilla)) {
 					//Validacion correcta 
 					Session.getConfigDriver().logger.log(LogStatus.PASS, "Validación de Monto Ingresado " , "Monto "+Session.getMontoSecundario()+ " Es Igual a " + grilla);
 				}else {

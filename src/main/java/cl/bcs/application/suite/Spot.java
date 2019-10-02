@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 import cl.bcs.application.factory.util.Session;
 import cl.bcs.application.factory.util.SpotExcel;
 import cl.bcs.application.file.util.Log4jFactory;
-import cl.bcs.cuenta.inversion.SelecionarCuentaInversion;
+import cl.bcs.cuenta.inversion.CuentaInversion;
 import cl.bcs.facturacion.Facturacion;
 import cl.bcs.plataforma.SeleccionarMenu;
 import cl.bcs.spot.ConfirmacionOperacionesSpot;
@@ -87,7 +87,7 @@ public class Spot {
 		if(result == false) {
 			return result;
 		}
-		result = SelecionarCuentaInversion.cuentaInversionCliente(usu);
+		result = CuentaInversion.cuentaInversionCliente(usu);
 		if(result == false) {
 			return result;
 		}

@@ -18,5 +18,7 @@ public class ConstantesConfirmacionOperacionSpot {
 	
 	public static final String XPATH_FOLIO_INPUT = "/html/body/div[6]/div[2]/div[2]/div/form/div/div[4]/div/bcs-grid/span/div[2]/div[3]/div/table/thead/tr[2]/th[2]/span/span/span[1]/span/input[1]";
 
-	public static final String XPATH_THERE = "//*[@id='grid-mov']/span/div[2]/div[4]/table//span[@ng-bind='dataItem.FolioOperacion' and contains(text(),"+Session.getFolio()+")]";
+	public static final String XPATH_THERE = "//*[@id='grid-mov']/span/div[2]/div[4]/table//span[@ng-bind='dataItem.FolioOperacion' and contains(text(),";
+	
+	public static final String XPATH_MONTO_GRILLA = "//*[@id='grid-mov']/span/div[2]/div[4]/table/tbody/tr[1]/td[12]/label";
 }

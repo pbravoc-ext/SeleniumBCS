@@ -8,6 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import com.relevantcodes.extentreports.LogStatus;
 
+import cl.bcs.application.constantes.util.Constantes;
 import cl.bcs.application.constantes.util.ConstantesSpot;
 import cl.bcs.application.constantes.util.ConstantesTesoreria;
 import cl.bcs.application.factory.util.Session;
@@ -37,8 +38,8 @@ public class Tesoreria {
 			String portafolio = "(" + datos.getPortafolio() + ") - PROPGENERALES";
 			String Egreso = Session.getMovimientoEgreso();
 			String Ingreso = Session.getMovimientoIngreso();
-			String buscarEgreso = ConstantesTesoreria.XPATH_BUSCAR_EGRESO_INGRESO + Egreso + ConstantesTesoreria.XPATH_BUSCAR_OUT;
-			String buscarIngreso = ConstantesTesoreria.XPATH_BUSCAR_EGRESO_INGRESO + Ingreso + ConstantesTesoreria.XPATH_BUSCAR_OUT;
+			String buscarEgreso = ConstantesTesoreria.XPATHERE_INGRESO_EGRESO + Egreso + Constantes.XPATHERE_OUT;
+			String buscarIngreso = ConstantesTesoreria.XPATHERE_INGRESO_EGRESO + Ingreso + Constantes.XPATHERE_OUT;
 
 			// Ingreso socio
 			Session.getConfigDriver().waitForLoad();
@@ -78,7 +79,7 @@ public class Tesoreria {
 			UtilesSelenium.findElement(By.xpath(buscarEgreso)).click();
 			LOGGER.info("Seleccionado" + " " + Egreso);
 			Session.getConfigDriver().waitForLoad();
-			grilla = UtilesSelenium.findElement(By.xpath("//*[@id='grid-ingreso-egreso']/span/div[2]/div[4]/table/tbody/tr/td[10]/label")).getText();
+			grilla = UtilesSelenium.findElement(By.xpath(ConstantesTesoreria.XPATH_INGRESO_EGRESO_GRILLA)).getText();
 			System.out.println(grilla);
 			if(SpotUtiles.validacionValorGrilla(Session.getMontoSecundario(), grilla)) {
 				//Validacion correcta 
@@ -96,13 +97,13 @@ public class Tesoreria {
 
 			// Busqueda grilla por secuencia Folio2//Ingreso
 			Session.getConfigDriver().waitForLoad();
-			UtilesSelenium.findElement(By.xpath("//*[@id='grid-ingreso-egreso']//input"))
+			UtilesSelenium.findElement(By.xpath(ConstantesTesoreria.XPATH_INGRESO_GRILLA_SECUENCIA))
 					.sendKeys(ConstantesSpot.SUB_ZEROS + Ingreso, Keys.ENTER);
 			Session.getConfigDriver().waitForLoad();
 			UtilesSelenium.findElement(By.xpath(buscarIngreso)).click();
 			LOGGER.info("Seleccionado" + " " + Ingreso);
 			Session.getConfigDriver().waitForLoad();
-			grilla = UtilesSelenium.findElement(By.xpath("//*[@id='grid-ingreso-egreso']/span/div[2]/div[4]/table/tbody/tr/td[10]/label")).getText();
+			grilla = UtilesSelenium.findElement(By.xpath(ConstantesTesoreria.XPATH_INGRESO_EGRESO_GRILLA)).getText();
 			System.out.println(grilla);
 			if(SpotUtiles.validacionValorGrilla(datos.getMontoPrincipal(), grilla)) {
 				//Validacion correcta 

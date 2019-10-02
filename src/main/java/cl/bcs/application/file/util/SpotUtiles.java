@@ -1,6 +1,6 @@
 package cl.bcs.application.file.util;
 
-
+import java.math.BigDecimal;
 
 public class SpotUtiles {
 	/**
@@ -8,7 +8,7 @@ public class SpotUtiles {
 	 * @param label
 	 * @return
 	 */
-	public static String folio(String label) {
+	public static String onlyNumbers(String label) {
 		return label.replaceAll("[^0-9]", "");
 	}
 	public static String formatoBigDecimal(String valor) {
@@ -18,10 +18,25 @@ public class SpotUtiles {
 		valor = valor.replace(",", ".");
 		return valor;
 	}
+	public static String formatoMontos(String valor) {
+		String valorFinal = valor.replace(".", "");
+		valorFinal = valorFinal.replace(",", ".");
+		return valorFinal;
+	}
+
 	
 	public static boolean validacionValorGrilla2(String valor, String valorGrilla) {
-		java.math.BigDecimal valorFinal = new java.math.BigDecimal(formatoBigDecimal(valor));
-		java.math.BigDecimal valorFinalGrilla = new java.math.BigDecimal(formatoBigDecimal(valorGrilla));
+		BigDecimal valorFinal = new BigDecimal(formatoBigDecimal(valor));
+		BigDecimal valorFinalGrilla = new BigDecimal(formatoBigDecimal(valorGrilla));
+		if (valorFinal.compareTo(valorFinalGrilla) == 0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	public static boolean validacionValorGrilla3(String valor, String valorGrilla) {
+		BigDecimal valorFinal = new BigDecimal(formatoMontos(valor));
+		BigDecimal valorFinalGrilla = new BigDecimal(formatoMontos(valorGrilla));
 		if (valorFinal.compareTo(valorFinalGrilla) == 0) {
 			return true;
 		}else {
@@ -36,8 +51,8 @@ public class SpotUtiles {
 	}
 	
 	public static boolean validacionValorGrilla(String valor, String valorGrilla) {
-		java.math.BigDecimal valorFinal = new java.math.BigDecimal(formatoBigDecimal2(valor));
-		java.math.BigDecimal valorFinalGrilla = new java.math.BigDecimal(formatoBigDecimal2(valorGrilla));
+		BigDecimal valorFinal = new BigDecimal(formatoBigDecimal2(valor));
+		BigDecimal valorFinalGrilla = new BigDecimal(formatoBigDecimal2(valorGrilla));
 		if (valorFinal.compareTo(valorFinalGrilla) == 0) {
 			return true;
 		}else {
