@@ -27,7 +27,9 @@ public class ConstantesCuentaInversion {
 	public static final String XPATH_ABONO_GRILLA_VENTA = "//*[@id='frmCtaCliente_gridMovimientosCuentaInversion']/span/div[2]/div[4]/table/tbody/tr[2]/td[7]/label";
 	
 	public static final String XPATH_CARGO_GRILLA_COMPRA = "//*[@id='frmCtaCliente_gridMovimientosCuentaInversion']/span/div[2]/div[4]/table/tbody/tr[2]/td[6]/label";
-														   //*[@id="frmCtaCliente_gridMovimientosCuentaInversion"]/span/div[2]/div[4]/table/tbody/tr[2]/td[6]/label
+															//*[@id="frmCtaCliente_gridMovimientosCuentaInversion"]/span/div[2]/div[4]/table/tbody/tr/td[6]/label
+													        //*[@id="frmCtaCliente_gridMovimientosCuentaInversion"]/span/div[2]/div[4]/table/tbody/tr/td[7]/label
+														 
 	public static final String XPATH_CARGO_GRILLA_VENTA = "//*[@id='frmCtaCliente_gridMovimientosCuentaInversion']/span/div[2]/div[4]/table/tbody/tr/td[6]/label";
 
 }

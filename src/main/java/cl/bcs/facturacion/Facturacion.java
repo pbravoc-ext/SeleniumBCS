@@ -6,7 +6,6 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import com.relevantcodes.extentreports.LogStatus;
-
 import cl.bcs.application.constantes.util.Constantes;
 import cl.bcs.application.constantes.util.ConstantesFacturacion;
 import cl.bcs.application.constantes.util.ConstantesSpot;
@@ -83,7 +82,7 @@ public class Facturacion extends SpotUtiles{
 					
 					Session.getConfigDriver().waitForLoad();
 					LOGGER.info("=======================================");
-					LOGGER.info(Session.getMontoPrincipal());
+					LOGGER.info(Session.getMontoSecundario());
 					LOGGER.info(SpotUtiles.formatoMontos(Session.getMontoSecundario()));
 					LOGGER.info(SpotUtiles.formatoBigDecimal(Session.getMontoSecundario()));
 					LOGGER.info("=======================================");
@@ -534,7 +533,7 @@ public class Facturacion extends SpotUtiles{
 				LOGGER.info(SpotUtiles.formatoBigDecimal(grilla));
 				LOGGER.info("=======================================");
 				
-				if(SpotUtiles.validacionValorGrilla2(Session.getMontoPrincipal(), grilla)) {
+				if(SpotUtiles.validacionValorGrilla2(Session.getMontoSecundario(), grilla)) {
 					//Validacion correcta 
 					Session.getConfigDriver().logger.log(LogStatus.PASS, "Validación de Monto Ingresado " , "Monto "+Session.getMontoSecundario()+ " Es Igual a " + grilla);
 				}else {

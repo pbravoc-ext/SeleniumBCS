@@ -1,7 +1,6 @@
 package cl.bcs.application.driver.factory;
 
 import java.io.File;
-import java.util.Date;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
@@ -20,8 +19,8 @@ public class FactoryExtentReport {
 	protected void configuracionInicialER() {
 
 		Session.getConfigDriver().extent = new ExtentReports(
-				System.getProperty("user.dir") + "/test-output/Optimus_Spot-"+DateUtil.fecha()+".html", true);
-		Session.getConfigDriver().extent.addSystemInfo("Encoding", "UTF-8");
+		"../test-output/Optimus_Spot-"+DateUtil.fecha()+".html", true);
+		Session.getConfigDriver().extent.addSystemInfo("Encoding", "ISO-8859-1");
 		Session.getConfigDriver().extent.addSystemInfo("Host Name", "Automatizacion OPTIMUS")
 				.addSystemInfo("Environment", "http://bolsa.optimuscb.cl:9045").addSystemInfo("User Name", "ROBOT");
 		Session.getConfigDriver().extent.loadConfig(new File(System.getProperty("user.dir") + "/extent-config.xml"));
@@ -45,7 +44,7 @@ public class FactoryExtentReport {
 
 		TakesScreenshot ts = (TakesScreenshot) driver;
 		File source = ts.getScreenshotAs(OutputType.FILE);
-		String destination = System.getProperty("user.dir") + "/testsScreenshots/" + screenshotName + ".png";
+		String destination = "../testsScreenshots/" + screenshotName + ".png";
 		File finalDestination = new File(destination);
 		FileUtils.copyFile(source, finalDestination);
 		return destination;

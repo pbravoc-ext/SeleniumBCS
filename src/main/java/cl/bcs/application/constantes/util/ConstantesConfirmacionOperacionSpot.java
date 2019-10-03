@@ -1,6 +1,5 @@
 package cl.bcs.application.constantes.util;
 
-import cl.bcs.application.factory.util.Session;
 /**
  * 
  * @author Narveider

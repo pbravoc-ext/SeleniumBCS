@@ -1,12 +1,6 @@
 package cl.bcs.application.spot.util;
 
-import org.apache.log4j.Logger;
-
-import cl.bcs.application.file.util.Log4jFactory;
-
 public class CuentaInversionUtil {
-
-	private static final Logger LOGGER = Log4jFactory.getLogger(CuentaInversionUtil.class);
 
 	protected static String formatoBigDeciaml(String valor) {
 		valor = valor.replaceAll(" ", "");

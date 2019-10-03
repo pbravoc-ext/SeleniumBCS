@@ -51,15 +51,12 @@ public class SpotUtiles {
 	}
 	
 	public static boolean validacionValorGrilla(String valor, String valorGrilla) {
-		BigDecimal valorFinal = new BigDecimal(formatoBigDecimal2(valor));
-		BigDecimal valorFinalGrilla = new BigDecimal(formatoBigDecimal2(valorGrilla));
-		if (valorFinal.compareTo(valorFinalGrilla) == 0) {
+		if (valor.trim().equalsIgnoreCase(valorGrilla.trim())) {
 			return true;
 		}else {
 			return false;
 		}
 	}
-
 		
 	
 }

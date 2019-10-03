@@ -117,14 +117,14 @@ public class IngresoOperacionSpot extends IngresoOperacionSpotUtil {
 
 				// Ingreso monto moneda principal
 				UtilesSelenium.findElement(By.xpath(ConstantesIngresoOperacionSpot.XPATH_MONEDA_PRINCIPAL_MONTO))
-						.sendKeys(ConstantesSpot.SUB_ZEROS + monedaPrincipal,Keys.TAB);
+						.sendKeys(ConstantesSpot.SUB_ZEROS + monedaPrincipal,Keys.ENTER);
 //				Session.getConfigDriver().waitForLoad();
 //				UtilesSelenium.findElement(By.xpath(ConstantesIngresoOperacionSpot.XPATH_MONEDA_PRINCIPAL_MONTO))
 //						.sendKeys(Keys.TAB);
 				Session.getConfigDriver().waitForLoad();
 				Session.getConfigDriver().logger.log(LogStatus.INFO, "Ingreso monto principal",
 						"Datos: " + ConstantesSpot.SUB_ZEROS + monedaPrincipal);
-				LOGGER.info("Ingreso monto principal: " + ConstantesSpot.SUB_ZEROS + monedaPrincipal);
+				LOGGER.info("Ingreso monto principal: "  + monedaPrincipal);
 				Session.getConfigDriver().waitForLoad();
 
 
@@ -141,8 +141,8 @@ public class IngresoOperacionSpot extends IngresoOperacionSpotUtil {
 					UtilesSelenium.findElement(By.xpath(ConstantesIngresoOperacionSpot.XPATH_TC_CIERRE))
 							.sendKeys(ConstantesSpot.SUB_ZEROS + tcCierre + Keys.ENTER);
 					Session.getConfigDriver().logger.log(LogStatus.INFO, "Ingreso monto T/C cierre",
-							"Datos: " + ConstantesSpot.SUB_ZEROS + tcCierre);
-					LOGGER.info("Ingreso T/C Cierre: " + ConstantesSpot.SUB_ZEROS + tcCierre);
+							"Datos: "  + tcCierre);
+					LOGGER.info("Ingreso T/C Cierre: " + tcCierre);
 
 					// Ingreso instrumento Default
 					ingresoInstrumento(Constantes.INSTRUMENTO_INTER);
@@ -188,8 +188,8 @@ public class IngresoOperacionSpot extends IngresoOperacionSpotUtil {
 					UtilesSelenium.findElement(By.xpath(ConstantesIngresoOperacionSpot.XPATH_PARIDAD_CIERRE))
 							.sendKeys(ConstantesSpot.SUB_ZEROS + paridadCierre);
 					Session.getConfigDriver().logger.log(LogStatus.INFO, "Ingreso monto Paridad cierre",
-							"Datos: " + ConstantesSpot.SUB_ZEROS + paridadCierre);
-					LOGGER.info("Ingreso Paridad Cierre: " + ConstantesSpot.SUB_ZEROS + paridadCierre);
+							"Datos: " + paridadCierre);
+					LOGGER.info("Ingreso Paridad Cierre: "  + paridadCierre);
 
 					// Ingreso instrumento Default
 					ingresoInstrumento(Constantes.INSTRUMENTO_ARB_DIS);
@@ -239,22 +239,24 @@ public class IngresoOperacionSpot extends IngresoOperacionSpotUtil {
 
 				// Ingreso monto moneda principal
 				UtilesSelenium.findElement(By.xpath(ConstantesIngresoOperacionSpot.XPATH_MONEDA_PRINCIPAL_MONTO))
-				.sendKeys(ConstantesSpot.SUB_ZEROS + monedaPrincipal,Keys.TAB);
+				.sendKeys(ConstantesSpot.SUB_ZEROS + monedaPrincipal,Keys.ENTER);
 
-				LOGGER.info("Ingreso monto principal: " + ConstantesSpot.SUB_ZEROS + monedaPrincipal);
+				LOGGER.info("Ingreso monto principal: "  + monedaPrincipal);
 				Session.getConfigDriver().waitForLoad();
 
 				Session.setMontoPrincipal(UtilesSelenium
 						.findElement(By.xpath(ConstantesIngresoOperacionSpot.XPATH_MONEDA_PRINCIPAL_MONTO))
 						.getAttribute(ConstantesSpotTags.TAG_TITLE));
+				
 				LOGGER.info("Monto Principal " + Session.getMontoPrincipal());
+				
 				Session.getConfigDriver().waitForLoad();
 
 				// Ingreso monto TC cierre
 				UtilesSelenium.findElement(By.xpath(ConstantesIngresoOperacionSpot.XPATH_TC_CIERRE))
 						.sendKeys(ConstantesSpot.SUB_ZEROS + tcCierre + Keys.ENTER);
 
-				LOGGER.info("Ingreso T/C Cierre: " + ConstantesSpot.SUB_ZEROS + tcCierre);
+				LOGGER.info("Ingreso T/C Cierre: "  + tcCierre);
 
 				// Ingreso instrumento Default
 				ingresoInstrumento(Constantes.INSTRUMENTO_INTER);
