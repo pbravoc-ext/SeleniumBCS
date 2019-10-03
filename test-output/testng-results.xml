@@ -2,20 +2,20 @@
 <testng-results total="2" passed="2" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2019-10-03T14:24:26Z" name="Default suite" finished-at="2019-10-03T14:36:00Z" duration-ms="693333">
+  <suite started-at="2019-10-03T15:19:17Z" name="Default suite" finished-at="2019-10-03T15:32:39Z" duration-ms="801902">
     <groups>
     </groups>
-    <test started-at="2019-10-03T14:24:26Z" name="Default test" finished-at="2019-10-03T14:36:00Z" duration-ms="693333">
+    <test started-at="2019-10-03T15:19:17Z" name="Default test" finished-at="2019-10-03T15:32:39Z" duration-ms="801902">
       <class name="cl.bcs.application.suite.execute.SpotExecute$ExtentReportsClass">
-        <test-method is-config="true" signature="startReport()[pri:0, instance:cl.bcs.application.suite.execute.SpotExecute$ExtentReportsClass@117e949d]" started-at="2019-10-03T11:24:26Z" name="startReport" finished-at="2019-10-03T11:24:37Z" duration-ms="10513" status="PASS">
+        <test-method is-config="true" signature="startReport()[pri:0, instance:cl.bcs.application.suite.execute.SpotExecute$ExtentReportsClass@117e949d]" started-at="2019-10-03T12:19:17Z" name="startReport" finished-at="2019-10-03T12:19:26Z" duration-ms="9155" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- startReport -->
-        <test-method signature="variacion0()[pri:1, instance:cl.bcs.application.suite.execute.SpotExecute$ExtentReportsClass@117e949d]" started-at="2019-10-03T11:24:37Z" name="variacion0" finished-at="2019-10-03T11:24:52Z" duration-ms="14898" status="PASS">
+        <test-method signature="variacion0()[pri:1, instance:cl.bcs.application.suite.execute.SpotExecute$ExtentReportsClass@117e949d]" started-at="2019-10-03T12:19:26Z" name="variacion0" finished-at="2019-10-03T12:19:41Z" duration-ms="14951" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- variacion0 -->
-        <test-method is-config="true" signature="getResult(org.testng.ITestResult)[pri:0, instance:cl.bcs.application.suite.execute.SpotExecute$ExtentReportsClass@117e949d]" started-at="2019-10-03T11:24:52Z" name="getResult" finished-at="2019-10-03T11:24:52Z" duration-ms="2" status="PASS">
+        <test-method is-config="true" signature="getResult(org.testng.ITestResult)[pri:0, instance:cl.bcs.application.suite.execute.SpotExecute$ExtentReportsClass@117e949d]" started-at="2019-10-03T12:19:41Z" name="getResult" finished-at="2019-10-03T12:19:41Z" duration-ms="2" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -26,22 +26,22 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- getResult -->
-        <test-method signature="variacion6()[pri:7, instance:cl.bcs.application.suite.execute.SpotExecute$ExtentReportsClass@117e949d]" started-at="2019-10-03T11:24:52Z" name="variacion6" finished-at="2019-10-03T11:35:57Z" duration-ms="665167" status="PASS">
+        <test-method signature="variacion8()[pri:9, instance:cl.bcs.application.suite.execute.SpotExecute$ExtentReportsClass@117e949d]" started-at="2019-10-03T12:19:41Z" name="variacion8" finished-at="2019-10-03T12:32:37Z" duration-ms="776369" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- variacion6 -->
-        <test-method is-config="true" signature="getResult(org.testng.ITestResult)[pri:0, instance:cl.bcs.application.suite.execute.SpotExecute$ExtentReportsClass@117e949d]" started-at="2019-10-03T11:35:57Z" name="getResult" finished-at="2019-10-03T11:35:57Z" duration-ms="0" status="PASS">
+        </test-method> <!-- variacion8 -->
+        <test-method is-config="true" signature="getResult(org.testng.ITestResult)[pri:0, instance:cl.bcs.application.suite.execute.SpotExecute$ExtentReportsClass@117e949d]" started-at="2019-10-03T12:32:37Z" name="getResult" finished-at="2019-10-03T12:32:37Z" duration-ms="1" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[TestResult name=variacion6 status=SUCCESS method=SpotExecute$ExtentReportsClass.variacion6()[pri:7, instance:cl.bcs.application.suite.execute.SpotExecute$ExtentReportsClass@117e949d] output={null}]]]>
+                <![CDATA[[TestResult name=variacion8 status=SUCCESS method=SpotExecute$ExtentReportsClass.variacion8()[pri:9, instance:cl.bcs.application.suite.execute.SpotExecute$ExtentReportsClass@117e949d] output={null}]]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- getResult -->
-        <test-method is-config="true" signature="endReport()[pri:0, instance:cl.bcs.application.suite.execute.SpotExecute$ExtentReportsClass@117e949d]" started-at="2019-10-03T11:35:57Z" name="endReport" finished-at="2019-10-03T11:36:00Z" duration-ms="2742" status="PASS">
+        <test-method is-config="true" signature="endReport()[pri:0, instance:cl.bcs.application.suite.execute.SpotExecute$ExtentReportsClass@117e949d]" started-at="2019-10-03T12:32:37Z" name="endReport" finished-at="2019-10-03T12:32:39Z" duration-ms="1413" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- endReport -->

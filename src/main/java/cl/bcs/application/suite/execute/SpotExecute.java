@@ -87,12 +87,12 @@ public class SpotExecute {
 //			Session.getConfigDriver().logger.log(LogStatus.PASS,usuario.get(7).getVariacion()+" Completado", "");
 //		}
 //		
-//		@Test(priority=9)
-//		public void variacion8() {
-//			Session.getConfigDriver().logger = Session.getConfigDriver().extent.startTest(usuario.get(8).getVariacion());
-//			Assert.assertTrue(Spot.suiteSpot(usuario.get(8)));
-//			Session.getConfigDriver().logger.log(LogStatus.PASS, usuario.get(8).getVariacion()+" Completado", "");
-//		}
+		@Test(priority=9)
+		public void variacion8() {
+			Session.getConfigDriver().logger = Session.getConfigDriver().extent.startTest(usuario.get(8).getVariacion());
+			Assert.assertTrue(Spot.suiteSpot(usuario.get(8)));
+			Session.getConfigDriver().logger.log(LogStatus.PASS, usuario.get(8).getVariacion()+" Completado", "");
+		}
 //		
 //		@Test(priority=10)
 //		public void variacion9() {

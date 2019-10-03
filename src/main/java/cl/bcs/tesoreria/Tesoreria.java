@@ -138,12 +138,12 @@ public class Tesoreria {
 				Session.getConfigDriver().waitForLoad();
 				grilla = UtilesSelenium.findElement(By.xpath(ConstantesTesoreria.XPATH_INGRESO_EGRESO_GRILLA)).getText();
 				LOGGER.info(grilla);
-				if(SpotUtiles.validacionValorGrilla2(Session.getMontoPrincipal(), grilla)) {
+				if(SpotUtiles.validacionValorGrilla2(Session.getMontoSecundario(), grilla)) {
 					//Validacion correcta 
-					Session.getConfigDriver().logger.log(LogStatus.PASS, "Validación de Monto Ingresado " , "Monto "+Session.getMontoPrincipal()+ " Es Igual a " + grilla);
+					Session.getConfigDriver().logger.log(LogStatus.PASS, "Validación de Monto Ingresado " , "Monto "+Session.getMontoSecundario()+ " Es Igual a " + grilla);
 				}else {
 					//error
-					Session.getConfigDriver().logger.log(LogStatus.WARNING, "Validación de Monto Ingresado " , "Monto "+Session.getMontoPrincipal()+ " Es Distinto a " + grilla);
+					Session.getConfigDriver().logger.log(LogStatus.WARNING, "Validación de Monto Ingresado " , "Monto "+Session.getMontoSecundario()+ " Es Distinto a " + grilla);
 					
 								}
 				UtilesExtentReport.captura("Egreso " + Egreso + " seleccionado");
@@ -162,12 +162,12 @@ public class Tesoreria {
 				Session.getConfigDriver().waitForLoad();
 				grilla = UtilesSelenium.findElement(By.xpath(ConstantesTesoreria.XPATH_INGRESO_EGRESO_GRILLA)).getText();
 				LOGGER.info(grilla);
-				if(SpotUtiles.validacionValorGrilla2(Session.getMontoSecundario(), grilla)) {
+				if(SpotUtiles.validacionValorGrilla2(Session.getMontoPrincipal(), grilla)) {
 					//Validacion correcta 
-					Session.getConfigDriver().logger.log(LogStatus.PASS, "Validación de Monto Ingresado " , "Monto "+Session.getMontoSecundario()+ " Es Igual a " + grilla);
+					Session.getConfigDriver().logger.log(LogStatus.PASS, "Validación de Monto Ingresado " , "Monto "+Session.getMontoPrincipal()+ " Es Igual a " + grilla);
 				}else {
 					//error
-					Session.getConfigDriver().logger.log(LogStatus.WARNING, "Validación de Monto Ingresado " , "Monto "+Session.getMontoSecundario()+ " Es Distinto a " + grilla);
+					Session.getConfigDriver().logger.log(LogStatus.WARNING, "Validación de Monto Ingresado " , "Monto "+Session.getMontoPrincipal()+ " Es Distinto a " + grilla);
 					
 								}
 				
