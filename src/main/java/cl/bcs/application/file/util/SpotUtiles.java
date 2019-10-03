@@ -12,7 +12,7 @@ public class SpotUtiles {
 		return label.replaceAll("[^0-9]", "");
 	}
 	public static String formatoBigDecimal(String valor) {
-		valor = valor.replaceAll(" ", "");
+		valor = valor.replace(" ", "");
 		valor = valor.replaceAll("[a-zA-Z]", "");
 		valor = valor.replace(".", "");
 		valor = valor.replace(",", ".");

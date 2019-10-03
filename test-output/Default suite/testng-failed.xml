@@ -5,9 +5,16 @@
     <classes>
       <class name="cl.bcs.application.suite.execute.SpotExecute$ExtentReportsClass">
         <methods>
+          <include name="variacion10"/>
+          <include name="variacion3"/>
+          <include name="variacion9"/>
           <include name="endReport"/>
           <include name="startReport"/>
-          <include name="variacion1"/>
+          <include name="variacion8"/>
+          <include name="variacion5"/>
+          <include name="variacion7"/>
+          <include name="variacion4"/>
+          <include name="variacion6"/>
           <include name="getResult"/>
         </methods>
       </class> <!-- cl.bcs.application.suite.execute.SpotExecute$ExtentReportsClass -->

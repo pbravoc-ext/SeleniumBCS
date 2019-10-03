@@ -33,6 +33,12 @@ public class Tesoreria {
 	public static boolean gestionTesoreria(SpotExcel datos) {
 
 		try {
+			Session.getConfigDriver().waitForLoad();
+			
+			UtilesExtentReport.captura("Ingreso Gestión de Tesorería");
+			
+			
+			
 			String grilla = null;
 			String socio = datos.getRut() + " " + datos.getNombre();
 			String portafolio = "(" + datos.getPortafolio() + ") - PROPGENERALES";
@@ -72,49 +78,104 @@ public class Tesoreria {
 			UtilesSelenium.findElement(By.xpath(ConstantesTesoreria.XPATH_BTN_BUSCAR)).click();
 			Session.getConfigDriver().waitForLoad();
 
-			// Busqueda grilla por secuencia Folio1 //Engreso
-			UtilesSelenium.findElement(By.xpath(ConstantesTesoreria.XPATH_GRILLA_SECUENCIA_INPUT))
-					.sendKeys(ConstantesSpot.SUB_ZEROS + Egreso, Keys.ENTER);
-			Session.getConfigDriver().waitForLoad();
-			UtilesSelenium.findElement(By.xpath(buscarEgreso)).click();
-			LOGGER.info("Seleccionado" + " " + Egreso);
-			Session.getConfigDriver().waitForLoad();
-			grilla = UtilesSelenium.findElement(By.xpath(ConstantesTesoreria.XPATH_INGRESO_EGRESO_GRILLA)).getText();
-			System.out.println(grilla);
-			if(SpotUtiles.validacionValorGrilla(Session.getMontoSecundario(), grilla)) {
-				//Validacion correcta 
-				Session.getConfigDriver().logger.log(LogStatus.PASS, "Validación de Monto Ingresado " , "Monto "+datos.getMontoPrincipal()+ " Es Igual a " + grilla);
-			}else {
-				//error
-				Session.getConfigDriver().logger.log(LogStatus.WARNING, "Validación de Monto Ingresado " , "Monto "+datos.getMontoPrincipal()+ " Es Distinto a " + grilla);
-				
-							}
-			UtilesExtentReport.captura("Egreso " + Egreso + " seleccionado");
-			Session.getConfigDriver().waitForLoad();
-
-			// Boton limpiar secuencia
-			UtilesSelenium.findElement(By.xpath(ConstantesTesoreria.XPATH_BTN_SCN)).click();
-
-			// Busqueda grilla por secuencia Folio2//Ingreso
-			Session.getConfigDriver().waitForLoad();
-			UtilesSelenium.findElement(By.xpath(ConstantesTesoreria.XPATH_INGRESO_GRILLA_SECUENCIA))
-					.sendKeys(ConstantesSpot.SUB_ZEROS + Ingreso, Keys.ENTER);
-			Session.getConfigDriver().waitForLoad();
-			UtilesSelenium.findElement(By.xpath(buscarIngreso)).click();
-			LOGGER.info("Seleccionado" + " " + Ingreso);
-			Session.getConfigDriver().waitForLoad();
-			grilla = UtilesSelenium.findElement(By.xpath(ConstantesTesoreria.XPATH_INGRESO_EGRESO_GRILLA)).getText();
-			System.out.println(grilla);
-			if(SpotUtiles.validacionValorGrilla(datos.getMontoPrincipal(), grilla)) {
-				//Validacion correcta 
-				Session.getConfigDriver().logger.log(LogStatus.PASS, "Validación de Monto Ingresado " , "Monto "+datos.getMontoPrincipal()+ " Es Igual a " + grilla);
-			}else {
-				//error
-				Session.getConfigDriver().logger.log(LogStatus.WARNING, "Validación de Monto Ingresado " , "Monto "+datos.getMontoPrincipal()+ " Es Distinto a " + grilla);
-				
-							}
 			
-			UtilesExtentReport.captura("Ingreso " + Ingreso + " seleccionado");
+			if (datos.getOperacion().equalsIgnoreCase(Constantes.COMPRA)) {
+				
+				// Busqueda grilla por secuencia Folio1 //Engreso
+				UtilesSelenium.findElement(By.xpath(ConstantesTesoreria.XPATH_GRILLA_SECUENCIA_INPUT))
+						.sendKeys(ConstantesSpot.SUB_ZEROS + Egreso, Keys.ENTER);
+				Session.getConfigDriver().waitForLoad();
+				UtilesSelenium.findElement(By.xpath(buscarEgreso)).click();
+				LOGGER.info("Seleccionado" + " " + Egreso);
+				Session.getConfigDriver().waitForLoad();
+				grilla = UtilesSelenium.findElement(By.xpath(ConstantesTesoreria.XPATH_INGRESO_EGRESO_GRILLA)).getText();
+				LOGGER.info(grilla);
+				if(SpotUtiles.validacionValorGrilla2(Session.getMontoSecundario(), grilla)) {
+					//Validacion correcta 
+					Session.getConfigDriver().logger.log(LogStatus.PASS, "Validación de Monto Ingresado " , "Monto "+Session.getMontoSecundario()+ " Es Igual a " + grilla);
+				}else {
+					//error
+					Session.getConfigDriver().logger.log(LogStatus.WARNING, "Validación de Monto Ingresado " , "Monto "+Session.getMontoSecundario()+ " Es Distinto a " + grilla);
+					
+								}
+				UtilesExtentReport.captura("Egreso " + Egreso + " seleccionado");
+				Session.getConfigDriver().waitForLoad();
+
+				// Boton limpiar secuencia
+				UtilesSelenium.findElement(By.xpath(ConstantesTesoreria.XPATH_BTN_SCN)).click();
+
+				// Busqueda grilla por secuencia Folio2//Ingreso
+				Session.getConfigDriver().waitForLoad();
+				UtilesSelenium.findElement(By.xpath(ConstantesTesoreria.XPATH_INGRESO_GRILLA_SECUENCIA))
+						.sendKeys(ConstantesSpot.SUB_ZEROS + Ingreso, Keys.ENTER);
+				Session.getConfigDriver().waitForLoad();
+				UtilesSelenium.findElement(By.xpath(buscarIngreso)).click();
+				LOGGER.info("Seleccionado" + " " + Ingreso);
+				Session.getConfigDriver().waitForLoad();
+				grilla = UtilesSelenium.findElement(By.xpath(ConstantesTesoreria.XPATH_INGRESO_EGRESO_GRILLA)).getText();
+				LOGGER.info(grilla);
+				if(SpotUtiles.validacionValorGrilla2(Session.getMontoPrincipal(), grilla)) {
+					//Validacion correcta 
+					Session.getConfigDriver().logger.log(LogStatus.PASS, "Validación de Monto Ingresado " , "Monto "+Session.getMontoPrincipal()+ " Es Igual a " + grilla);
+				}else {
+					//error
+					Session.getConfigDriver().logger.log(LogStatus.WARNING, "Validación de Monto Ingresado " , "Monto "+Session.getMontoPrincipal()+ " Es Distinto a " + grilla);
+					
+								}
+				
+				UtilesExtentReport.captura("Ingreso " + Ingreso + " seleccionado");
+				Session.getConfigDriver().waitForLoad();
+				
+				
+				
+			}else {
+				// Busqueda grilla por secuencia Folio1 //Engreso
+				UtilesSelenium.findElement(By.xpath(ConstantesTesoreria.XPATH_GRILLA_SECUENCIA_INPUT))
+						.sendKeys(ConstantesSpot.SUB_ZEROS + Egreso, Keys.ENTER);
+				Session.getConfigDriver().waitForLoad();
+				UtilesSelenium.findElement(By.xpath(buscarEgreso)).click();
+				LOGGER.info("Seleccionado" + " " + Egreso);
+				Session.getConfigDriver().waitForLoad();
+				grilla = UtilesSelenium.findElement(By.xpath(ConstantesTesoreria.XPATH_INGRESO_EGRESO_GRILLA)).getText();
+				LOGGER.info(grilla);
+				if(SpotUtiles.validacionValorGrilla2(Session.getMontoPrincipal(), grilla)) {
+					//Validacion correcta 
+					Session.getConfigDriver().logger.log(LogStatus.PASS, "Validación de Monto Ingresado " , "Monto "+Session.getMontoPrincipal()+ " Es Igual a " + grilla);
+				}else {
+					//error
+					Session.getConfigDriver().logger.log(LogStatus.WARNING, "Validación de Monto Ingresado " , "Monto "+Session.getMontoPrincipal()+ " Es Distinto a " + grilla);
+					
+								}
+				UtilesExtentReport.captura("Egreso " + Egreso + " seleccionado");
+				Session.getConfigDriver().waitForLoad();
+
+				// Boton limpiar secuencia
+				UtilesSelenium.findElement(By.xpath(ConstantesTesoreria.XPATH_BTN_SCN)).click();
+
+				// Busqueda grilla por secuencia Folio2//Ingreso
+				Session.getConfigDriver().waitForLoad();
+				UtilesSelenium.findElement(By.xpath(ConstantesTesoreria.XPATH_INGRESO_GRILLA_SECUENCIA))
+						.sendKeys(ConstantesSpot.SUB_ZEROS + Ingreso, Keys.ENTER);
+				Session.getConfigDriver().waitForLoad();
+				UtilesSelenium.findElement(By.xpath(buscarIngreso)).click();
+				LOGGER.info("Seleccionado" + " " + Ingreso);
+				Session.getConfigDriver().waitForLoad();
+				grilla = UtilesSelenium.findElement(By.xpath(ConstantesTesoreria.XPATH_INGRESO_EGRESO_GRILLA)).getText();
+				LOGGER.info(grilla);
+				if(SpotUtiles.validacionValorGrilla2(Session.getMontoSecundario(), grilla)) {
+					//Validacion correcta 
+					Session.getConfigDriver().logger.log(LogStatus.PASS, "Validación de Monto Ingresado " , "Monto "+Session.getMontoSecundario()+ " Es Igual a " + grilla);
+				}else {
+					//error
+					Session.getConfigDriver().logger.log(LogStatus.WARNING, "Validación de Monto Ingresado " , "Monto "+Session.getMontoSecundario()+ " Es Distinto a " + grilla);
+					
+								}
+				
+				UtilesExtentReport.captura("Ingreso " + Ingreso + " seleccionado");
+				
+			}
+			
+			
 			Session.getConfigDriver().waitForLoad();
 			CerrarVentana.init();
 

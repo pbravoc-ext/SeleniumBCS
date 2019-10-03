@@ -84,20 +84,20 @@ public class Facturacion extends SpotUtiles{
 					Session.getConfigDriver().waitForLoad();
 					LOGGER.info("=======================================");
 					LOGGER.info(Session.getMontoPrincipal());
-					LOGGER.info(SpotUtiles.formatoMontos(Session.getMontoPrincipal()));
-					LOGGER.info(SpotUtiles.formatoBigDecimal(Session.getMontoPrincipal()));
+					LOGGER.info(SpotUtiles.formatoMontos(Session.getMontoSecundario()));
+					LOGGER.info(SpotUtiles.formatoBigDecimal(Session.getMontoSecundario()));
 					LOGGER.info("=======================================");
 					LOGGER.info(grilla);
 					LOGGER.info(SpotUtiles.formatoMontos(grilla));
 					LOGGER.info(SpotUtiles.formatoBigDecimal(grilla));
 					LOGGER.info("=======================================");
 					
-					if(SpotUtiles.validacionValorGrilla(Session.getMontoPrincipal(), grilla)) {
+					if(SpotUtiles.validacionValorGrilla2(Session.getMontoSecundario(), grilla)) {
 						//Validacion correcta 
-						Session.getConfigDriver().logger.log(LogStatus.PASS, "Validación de Monto Ingresado " , "Monto "+Session.getMontoPrincipal()+ " Es Igual a " + grilla);
+						Session.getConfigDriver().logger.log(LogStatus.PASS, "Validación de Monto Ingresado " , "Monto "+Session.getMontoSecundario()+ " Es Igual a " + grilla);
 					}else {
 						//error
-						Session.getConfigDriver().logger.log(LogStatus.WARNING, "Validación de Monto Ingresado " , "Monto "+Session.getMontoPrincipal()+ " Es Distinto a " + grilla);
+						Session.getConfigDriver().logger.log(LogStatus.WARNING, "Validación de Monto Ingresado " , "Monto "+Session.getMontoSecundario()+ " Es Distinto a " + grilla);
 									}
 					
 					// Generar
@@ -161,7 +161,7 @@ public class Facturacion extends SpotUtiles{
 					LOGGER.info(SpotUtiles.formatoBigDecimal(grilla));
 					LOGGER.info("=======================================");
 					
-					if(SpotUtiles.validacionValorGrilla(Session.getMontoPrincipal(), grilla)) {
+					if(SpotUtiles.validacionValorGrilla2(Session.getMontoPrincipal(), grilla)) {
 						//Validacion correcta 
 						Session.getConfigDriver().logger.log(LogStatus.PASS, "Validación de Monto Ingresado " , "Monto "+Session.getMontoPrincipal()+ " Es Igual a " + grilla);
 					}else {

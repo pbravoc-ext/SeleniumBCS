@@ -51,6 +51,85 @@ public class CuentaInversion extends SpotUtiles {
 			Session.getConfigDriver().waitForLoad();
 
 			if (datos.getInstrumento().equalsIgnoreCase(Constantes.INSTRUMENTO_ARB_INTER)) {
+				
+				if (datos.getCuentaInversion().equalsIgnoreCase(Constantes.NO)) {
+					
+					if (datos.getOperacion().equalsIgnoreCase(Constantes.COMPRA)) {
+
+						UtilesSelenium.findElement(By.xpath(ConstantesCuentaInversion.XPATH_TIPO_COMPROBANTE))
+								.sendKeys(Keys.TAB);
+						UtilesSelenium.findElement(By.xpath(ConstantesCuentaInversion.XPATH_FOLIO_COMPROBANTE))
+								.sendKeys(ConstantesSpot.SUB_ZEROS + Session.getComprobante() + Keys.ENTER);
+						Session.getConfigDriver().waitForLoad();
+						UtilesExtentReport.captura("Busqueda por Folio Comprobante " + Session.getComprobante());
+						Session.getConfigDriver().waitForLoad();
+
+						// Validación Monto CARGO
+						grilla = UtilesSelenium.findElement(By.xpath(ConstantesCuentaInversion.XPATH_CARGO_GRILLA_VENTA))
+								.getText();
+						LOGGER.info(grilla);
+						LOGGER.info("=======================================");
+						LOGGER.info(Session.getMontoPrincipal());
+						LOGGER.info(SpotUtiles.formatoMontos(Session.getMontoPrincipal()));
+						LOGGER.info(SpotUtiles.formatoBigDecimal(Session.getMontoPrincipal()));
+						LOGGER.info("=======================================");
+						LOGGER.info(grilla);
+						LOGGER.info(SpotUtiles.formatoMontos(grilla));
+						LOGGER.info(SpotUtiles.formatoBigDecimal(grilla));
+						LOGGER.info("=======================================");
+
+						if (SpotUtiles.validacionValorGrilla2(Session.getMontoPrincipal(), grilla)) {
+							// Validacion correcta
+							Session.getConfigDriver().logger.log(LogStatus.PASS, "Validación de Monto Ingresado Cargo",
+									"Monto " + Session.getMontoPrincipal() + " Es Igual a " + grilla);
+						} else {
+							// error
+							Session.getConfigDriver().logger.log(LogStatus.WARNING, "Validación de Monto Ingresado Cargo",
+									"Monto " + Session.getMontoPrincipal() + " Es Distinto a " + grilla);
+						}
+
+					} else {
+
+						UtilesSelenium.findElement(By.xpath(ConstantesCuentaInversion.XPATH_TIPO_COMPROBANTE))
+								.sendKeys(Keys.TAB);
+						UtilesSelenium.findElement(By.xpath(ConstantesCuentaInversion.XPATH_FOLIO_COMPROBANTE))
+								.sendKeys(ConstantesSpot.SUB_ZEROS + Session.getComprobante() + Keys.ENTER);
+
+						Session.getConfigDriver().waitForLoad();
+						UtilesExtentReport.captura("Busqueda por Folio Comprobante " + Session.getComprobante());
+						Session.getConfigDriver().waitForLoad();
+
+						// Validación Monto Cargo
+						grilla = UtilesSelenium.findElement(By.xpath(ConstantesCuentaInversion.XPATH_ABONO_GRILLA_COMPRA))
+								.getText();
+						LOGGER.info("=======================================");
+						LOGGER.info(grilla);
+						LOGGER.info(SpotUtiles.formatoMontos(Session.getMontoSecundario()));
+						LOGGER.info(SpotUtiles.formatoBigDecimal(Session.getMontoSecundario()));
+						LOGGER.info("=======================================");
+						LOGGER.info(grilla);
+						LOGGER.info(SpotUtiles.formatoMontos(grilla));
+						LOGGER.info(SpotUtiles.formatoBigDecimal(grilla));
+						LOGGER.info("=======================================");
+
+						if (SpotUtiles.validacionValorGrilla2(Session.getMontoSecundario(), grilla)) {
+							// Validacion correcta
+							Session.getConfigDriver().logger.log(LogStatus.PASS, "Validación de Monto Ingresado ",
+									"Monto " + Session.getMontoSecundario() + " Es Igual a " + grilla);
+						} else {
+							// error
+							Session.getConfigDriver().logger.log(LogStatus.WARNING, "Validación de Monto Ingresado ",
+									"Monto " + Session.getMontoSecundario() + " Es Distinto a " + grilla);
+						}
+					}
+					
+					
+					
+					
+					
+				}else {				
+				
+				//Arbitraje con Cuenta Inversion 
 
 				if (datos.getOperacion().equalsIgnoreCase(Constantes.COMPRA)) {
 
@@ -98,28 +177,29 @@ public class CuentaInversion extends SpotUtiles {
 					Session.getConfigDriver().waitForLoad();
 
 					// Validación Monto Cargo
-					grilla = UtilesSelenium.findElement(By.xpath(ConstantesCuentaInversion.XPATH_CARGO_GRILLA_VENTA))
+					grilla = UtilesSelenium.findElement(By.xpath(ConstantesCuentaInversion.XPATH_ABONO_GRILLA_COMPRA))
 							.getText();
 					LOGGER.info("=======================================");
 					LOGGER.info(grilla);
-					LOGGER.info(SpotUtiles.formatoMontos(Session.getMontoSecundario()));
-					LOGGER.info(SpotUtiles.formatoBigDecimal(Session.getMontoSecundario()));
+					LOGGER.info(SpotUtiles.formatoMontos(Session.getMontoPrincipal()));
+					LOGGER.info(SpotUtiles.formatoBigDecimal(Session.getMontoPrincipal()));
 					LOGGER.info("=======================================");
 					LOGGER.info(grilla);
 					LOGGER.info(SpotUtiles.formatoMontos(grilla));
 					LOGGER.info(SpotUtiles.formatoBigDecimal(grilla));
 					LOGGER.info("=======================================");
 
-					if (SpotUtiles.validacionValorGrilla2(Session.getMontoSecundario(), grilla)) {
+					if (SpotUtiles.validacionValorGrilla2(Session.getMontoPrincipal(), grilla)) {
 						// Validacion correcta
 						Session.getConfigDriver().logger.log(LogStatus.PASS, "Validación de Monto Ingresado ",
-								"Monto " + Session.getMontoSecundario() + " Es Igual a " + grilla);
+								"Monto " + Session.getMontoPrincipal() + " Es Igual a " + grilla);
 					} else {
 						// error
 						Session.getConfigDriver().logger.log(LogStatus.WARNING, "Validación de Monto Ingresado ",
-								"Monto " + Session.getMontoSecundario() + " Es Distinto a " + grilla);
+								"Monto " + Session.getMontoPrincipal() + " Es Distinto a " + grilla);
 					}
 				}
+			}
 
 				Session.getConfigDriver().waitForLoad();
 
@@ -209,28 +289,32 @@ public class CuentaInversion extends SpotUtiles {
 					Session.getConfigDriver().waitForLoad();
 
 					// Validación Monto ABONO
-					grilla = UtilesSelenium.findElement(By.xpath(ConstantesCuentaInversion.XPATH_ABONO_GRILLA_COMPRA))
+					grilla = UtilesSelenium.findElement(By.xpath(ConstantesCuentaInversion.XPATH_CARGO_GRILLA_VENTA))
 							.getText();
+				
+					LOGGER.info("=======================================");
+					LOGGER.info(Session.getComprobanteVenta());
+					LOGGER.info("=======================================");
+					
 					LOGGER.info(grilla);
-
 					LOGGER.info("=======================================");
 					LOGGER.info(Session.getMontoPrincipal());
-					LOGGER.info(SpotUtiles.formatoMontos(Session.getMontoPrincipal()));
-					LOGGER.info(SpotUtiles.formatoBigDecimal(Session.getMontoPrincipal()));
+					LOGGER.info(SpotUtiles.formatoMontos(Session.getMontoSecundario()));
+					LOGGER.info(SpotUtiles.formatoBigDecimal(Session.getMontoSecundario()));
 					LOGGER.info("=======================================");
 					LOGGER.info(grilla);
 					LOGGER.info(SpotUtiles.formatoMontos(grilla));
 					LOGGER.info(SpotUtiles.formatoBigDecimal(grilla));
 					LOGGER.info("=======================================");
 
-					if (SpotUtiles.validacionValorGrilla2(Session.getMontoPrincipal(), grilla)) {
+					if (SpotUtiles.validacionValorGrilla2(Session.getMontoSecundario(), grilla)) {
 						// Validacion correcta
 						Session.getConfigDriver().logger.log(LogStatus.PASS, "Validación de Monto Ingresado Abono",
-								"Monto " + Session.getMontoPrincipal() + " Es Igual a " + grilla);
+								"Monto " + Session.getMontoSecundario() + " Es Igual a " + grilla);
 					} else {
 						// error
 						Session.getConfigDriver().logger.log(LogStatus.WARNING, "Validación de Monto Ingresado Abono",
-								"Monto " + Session.getMontoPrincipal() + " Es Distinto a " + grilla);
+								"Monto " + Session.getMontoSecundario() + " Es Distinto a " + grilla);
 					}
 				}
 

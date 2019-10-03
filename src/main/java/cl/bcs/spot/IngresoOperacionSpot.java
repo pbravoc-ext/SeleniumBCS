@@ -118,6 +118,7 @@ public class IngresoOperacionSpot extends IngresoOperacionSpotUtil {
 				// Ingreso monto moneda principal
 				UtilesSelenium.findElement(By.xpath(ConstantesIngresoOperacionSpot.XPATH_MONEDA_PRINCIPAL_MONTO))
 						.sendKeys(ConstantesSpot.SUB_ZEROS + monedaPrincipal);
+				Session.getConfigDriver().waitForLoad();
 				Session.getConfigDriver().logger.log(LogStatus.INFO, "Ingreso monto principal",
 						"Datos: " + ConstantesSpot.SUB_ZEROS + monedaPrincipal);
 				LOGGER.info("Ingreso monto principal: " + ConstantesSpot.SUB_ZEROS + monedaPrincipal);
@@ -197,7 +198,7 @@ public class IngresoOperacionSpot extends IngresoOperacionSpotUtil {
 
 					// Validacion campo T/C Costo
 					validarTC(instrumento);
-					
+					Session.getConfigDriver().waitForLoad();
 					
 					Session.setMontoPrincipal(UtilesSelenium
 							.findElement(By.xpath(ConstantesIngresoOperacionSpot.XPATH_MONEDA_PRINCIPAL_MONTO))
@@ -262,6 +263,7 @@ public class IngresoOperacionSpot extends IngresoOperacionSpotUtil {
 
 				// Validacion campo T/C Costo
 				validarTC(instrumento);
+				
 
 				// Rescatando datos
 				String montoFinal = UtilesSelenium
@@ -303,6 +305,7 @@ public class IngresoOperacionSpot extends IngresoOperacionSpotUtil {
 			Session.getConfigDriver().logger.log(LogStatus.PASS, "Ingreso monto principal", monedaPrincipal);
 			Session.getConfigDriver().logger.log(LogStatus.PASS, "Ingreso monto T/C cierre", tcCierre);
 			Session.getConfigDriver().waitForLoad();
+			
 
 			// Validacion valores punta compra/venta
 			UtilesExtentReport.captura("Ingresar operacion Spot - Validaciones");
