@@ -319,6 +319,8 @@ public class CuentaInversion extends SpotUtiles {
 				}
 
 			} else {
+				
+				//No arbitraje y Cuenta Inversión
 
 				UtilesSelenium.findElement(By.xpath(ConstantesCuentaInversion.XPATH_TIPO_COMPROBANTE))
 						.sendKeys(Keys.TAB);
@@ -354,7 +356,7 @@ public class CuentaInversion extends SpotUtiles {
 								"Monto " + Session.getMontoSecundario() + " Es Distinto a " + grilla);
 					}
 
-				} else {
+				} else { // Venta
 
 					// Validación Monto ABONO
 					grilla = UtilesSelenium.findElement(By.xpath(ConstantesCuentaInversion.XPATH_ABONO_GRILLA_VENTA))

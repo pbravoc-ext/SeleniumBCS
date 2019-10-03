@@ -42,7 +42,7 @@ public class IngresoOperacionSpot extends IngresoOperacionSpotUtil {
 		String iosPuntaCompra = null;
 		String iosPuntaVenta = null;
 		try {
-			
+
 			UtilesExtentReport.captura("Ingresar operacion Spot");
 			Session.getConfigDriver().waitForLoad();
 			// Ingreso cliente
@@ -117,17 +117,23 @@ public class IngresoOperacionSpot extends IngresoOperacionSpotUtil {
 
 				// Ingreso monto moneda principal
 				UtilesSelenium.findElement(By.xpath(ConstantesIngresoOperacionSpot.XPATH_MONEDA_PRINCIPAL_MONTO))
-						.sendKeys(ConstantesSpot.SUB_ZEROS + monedaPrincipal);
+						.sendKeys(ConstantesSpot.SUB_ZEROS + monedaPrincipal,Keys.TAB);
+//				Session.getConfigDriver().waitForLoad();
+//				UtilesSelenium.findElement(By.xpath(ConstantesIngresoOperacionSpot.XPATH_MONEDA_PRINCIPAL_MONTO))
+//						.sendKeys(Keys.TAB);
 				Session.getConfigDriver().waitForLoad();
 				Session.getConfigDriver().logger.log(LogStatus.INFO, "Ingreso monto principal",
 						"Datos: " + ConstantesSpot.SUB_ZEROS + monedaPrincipal);
 				LOGGER.info("Ingreso monto principal: " + ConstantesSpot.SUB_ZEROS + monedaPrincipal);
 				Session.getConfigDriver().waitForLoad();
 
+
 				Session.setMontoPrincipal(UtilesSelenium
 						.findElement(By.xpath(ConstantesIngresoOperacionSpot.XPATH_MONEDA_PRINCIPAL_MONTO))
 						.getAttribute(ConstantesSpotTags.TAG_TITLE));
 				Session.getConfigDriver().waitForLoad();
+
+				LOGGER.info(Session.getMontoPrincipal());
 
 				if (datos.getMonedaSecundaria().equalsIgnoreCase(ConstantesSpot.MONEDA_CLP)) {
 
@@ -185,7 +191,6 @@ public class IngresoOperacionSpot extends IngresoOperacionSpotUtil {
 							"Datos: " + ConstantesSpot.SUB_ZEROS + paridadCierre);
 					LOGGER.info("Ingreso Paridad Cierre: " + ConstantesSpot.SUB_ZEROS + paridadCierre);
 
-					
 					// Ingreso instrumento Default
 					ingresoInstrumento(Constantes.INSTRUMENTO_ARB_DIS);
 
@@ -199,12 +204,11 @@ public class IngresoOperacionSpot extends IngresoOperacionSpotUtil {
 					// Validacion campo T/C Costo
 					validarTC(instrumento);
 					Session.getConfigDriver().waitForLoad();
-					
+
 					Session.setMontoPrincipal(UtilesSelenium
 							.findElement(By.xpath(ConstantesIngresoOperacionSpot.XPATH_MONEDA_PRINCIPAL_MONTO))
 							.getAttribute(ConstantesSpotTags.TAG_TITLE));
 					Session.getConfigDriver().waitForLoad();
-					
 
 					// Rescatando datos
 					String margen = UtilesSelenium.findElement(By.xpath(ConstantesIngresoOperacionSpot.XPATH_MARGEN))
@@ -235,7 +239,7 @@ public class IngresoOperacionSpot extends IngresoOperacionSpotUtil {
 
 				// Ingreso monto moneda principal
 				UtilesSelenium.findElement(By.xpath(ConstantesIngresoOperacionSpot.XPATH_MONEDA_PRINCIPAL_MONTO))
-						.sendKeys(ConstantesSpot.SUB_ZEROS + monedaPrincipal + Keys.ENTER);
+				.sendKeys(ConstantesSpot.SUB_ZEROS + monedaPrincipal,Keys.TAB);
 
 				LOGGER.info("Ingreso monto principal: " + ConstantesSpot.SUB_ZEROS + monedaPrincipal);
 				Session.getConfigDriver().waitForLoad();
@@ -263,7 +267,6 @@ public class IngresoOperacionSpot extends IngresoOperacionSpotUtil {
 
 				// Validacion campo T/C Costo
 				validarTC(instrumento);
-				
 
 				// Rescatando datos
 				String montoFinal = UtilesSelenium
@@ -305,7 +308,6 @@ public class IngresoOperacionSpot extends IngresoOperacionSpotUtil {
 			Session.getConfigDriver().logger.log(LogStatus.PASS, "Ingreso monto principal", monedaPrincipal);
 			Session.getConfigDriver().logger.log(LogStatus.PASS, "Ingreso monto T/C cierre", tcCierre);
 			Session.getConfigDriver().waitForLoad();
-			
 
 			// Validacion valores punta compra/venta
 			UtilesExtentReport.captura("Ingresar operacion Spot - Validaciones");
@@ -396,10 +398,10 @@ public class IngresoOperacionSpot extends IngresoOperacionSpotUtil {
 			UtilesExtentReport.captura("Ingresar operacion spot - Forma de pago - Spot");
 
 			// Rescatar Fechas
-			String fechaEntregamos = UtilesSelenium.findElement(By.xpath(ConstantesIngresoOperacionSpot.XPATH_FECHA_ENTREGAMOS))
-					.getText();
-			String fechaRecibimos = UtilesSelenium.findElement(By.xpath(ConstantesIngresoOperacionSpot.XPATH_FECHA_RECIBIMOS))
-					.getText();
+			String fechaEntregamos = UtilesSelenium
+					.findElement(By.xpath(ConstantesIngresoOperacionSpot.XPATH_FECHA_ENTREGAMOS)).getText();
+			String fechaRecibimos = UtilesSelenium
+					.findElement(By.xpath(ConstantesIngresoOperacionSpot.XPATH_FECHA_RECIBIMOS)).getText();
 			Session.setFechaDesde(fechaEntregamos);
 			Session.getConfigDriver().logger.log(LogStatus.INFO, "Fecha Entregamos", "Datos: " + fechaEntregamos);
 			Session.setFechaHasta(fechaRecibimos);

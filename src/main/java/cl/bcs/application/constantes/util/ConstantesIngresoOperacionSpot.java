@@ -23,7 +23,7 @@ public class ConstantesIngresoOperacionSpot {
 	public static final String XPATH_OPERACION = "//*[@id='UI_OPERACION']/span/span/span/input";
 
 	public static final String XPATH_INSTRUMENTO = "//*[@id='UI_TIPO_INSTRUMENTO']/span/span/span/input";
-
+															   //*[@id="UI_MONTO_PRINCIPAL"]/span/span/input[1]
 	public static final String XPATH_MONEDA_PRINCIPAL_MONTO = "//*[@id='UI_MONTO_PRINCIPAL']/span/span/input[1]";
 
 	public static final String XPATH_TC_CIERRE = "//*[@id='UI_TC_CIERRE']/span/span/input[1]";
