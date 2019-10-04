@@ -96,18 +96,6 @@ public class IngresoOperacionSpot extends IngresoOperacionSpotUtil {
 			LOGGER.info("Operacion Seleccionada");
 			Session.getConfigDriver().waitForLoad();
 
-			// Valores punta compra/venta
-			iosPuntaCompra = UtilesSelenium.findElement(By.xpath(ConstantesIngresoOperacionSpot.XPATH_PUNTA_COMPRA))
-					.getAttribute(ConstantesSpotTags.TAG_TITLE);
-			LOGGER.info("IOSPuntaCompra: " + iosPuntaCompra);
-			Session.getConfigDriver().waitForLoad();
-			iosPuntaVenta = UtilesSelenium.findElement(By.xpath(ConstantesIngresoOperacionSpot.XPATH_PUNTA_VENTA))
-					.getAttribute(ConstantesSpotTags.TAG_TITLE);
-			LOGGER.info("IOSPuntaVenta: " + iosPuntaVenta);
-			Session.getConfigDriver().waitForLoad();
-			LOGGER.info("PuntaCompra: " + Session.getVariables().getPuntaCompra());
-			LOGGER.info("PuntaVenta: " + Session.getVariables().getPuntaVenta());
-
 //			// Validacion valores punta compra/venta
 //			validacionValoresPunta(Session.getVariables().getPuntaCompra(), Session.getVariables().getPuntaVenta(),
 //					iosPuntaCompra, iosPuntaVenta);
@@ -117,16 +105,15 @@ public class IngresoOperacionSpot extends IngresoOperacionSpotUtil {
 
 				// Ingreso monto moneda principal
 				UtilesSelenium.findElement(By.xpath(ConstantesIngresoOperacionSpot.XPATH_MONEDA_PRINCIPAL_MONTO))
-						.sendKeys(ConstantesSpot.SUB_ZEROS + monedaPrincipal,Keys.ENTER);
+						.sendKeys(ConstantesSpot.SUB_ZEROS + monedaPrincipal, Keys.ENTER);
 //				Session.getConfigDriver().waitForLoad();
 //				UtilesSelenium.findElement(By.xpath(ConstantesIngresoOperacionSpot.XPATH_MONEDA_PRINCIPAL_MONTO))
 //						.sendKeys(Keys.TAB);
 				Session.getConfigDriver().waitForLoad();
 				Session.getConfigDriver().logger.log(LogStatus.INFO, "Ingreso monto principal",
 						"Datos: " + ConstantesSpot.SUB_ZEROS + monedaPrincipal);
-				LOGGER.info("Ingreso monto principal: "  + monedaPrincipal);
+				LOGGER.info("Ingreso monto principal: " + monedaPrincipal);
 				Session.getConfigDriver().waitForLoad();
-
 
 				Session.setMontoPrincipal(UtilesSelenium
 						.findElement(By.xpath(ConstantesIngresoOperacionSpot.XPATH_MONEDA_PRINCIPAL_MONTO))
@@ -141,7 +128,7 @@ public class IngresoOperacionSpot extends IngresoOperacionSpotUtil {
 					UtilesSelenium.findElement(By.xpath(ConstantesIngresoOperacionSpot.XPATH_TC_CIERRE))
 							.sendKeys(ConstantesSpot.SUB_ZEROS + tcCierre + Keys.ENTER);
 					Session.getConfigDriver().logger.log(LogStatus.INFO, "Ingreso monto T/C cierre",
-							"Datos: "  + tcCierre);
+							"Datos: " + tcCierre);
 					LOGGER.info("Ingreso T/C Cierre: " + tcCierre);
 
 					// Ingreso instrumento Default
@@ -189,7 +176,7 @@ public class IngresoOperacionSpot extends IngresoOperacionSpotUtil {
 							.sendKeys(ConstantesSpot.SUB_ZEROS + paridadCierre);
 					Session.getConfigDriver().logger.log(LogStatus.INFO, "Ingreso monto Paridad cierre",
 							"Datos: " + paridadCierre);
-					LOGGER.info("Ingreso Paridad Cierre: "  + paridadCierre);
+					LOGGER.info("Ingreso Paridad Cierre: " + paridadCierre);
 
 					// Ingreso instrumento Default
 					ingresoInstrumento(Constantes.INSTRUMENTO_ARB_DIS);
@@ -239,24 +226,24 @@ public class IngresoOperacionSpot extends IngresoOperacionSpotUtil {
 
 				// Ingreso monto moneda principal
 				UtilesSelenium.findElement(By.xpath(ConstantesIngresoOperacionSpot.XPATH_MONEDA_PRINCIPAL_MONTO))
-				.sendKeys(ConstantesSpot.SUB_ZEROS + monedaPrincipal,Keys.ENTER);
+						.sendKeys(ConstantesSpot.SUB_ZEROS + monedaPrincipal, Keys.ENTER);
 
-				LOGGER.info("Ingreso monto principal: "  + monedaPrincipal);
+				LOGGER.info("Ingreso monto principal: " + monedaPrincipal);
 				Session.getConfigDriver().waitForLoad();
 
 				Session.setMontoPrincipal(UtilesSelenium
 						.findElement(By.xpath(ConstantesIngresoOperacionSpot.XPATH_MONEDA_PRINCIPAL_MONTO))
 						.getAttribute(ConstantesSpotTags.TAG_TITLE));
-				
+
 				LOGGER.info("Monto Principal " + Session.getMontoPrincipal());
-				
+
 				Session.getConfigDriver().waitForLoad();
 
 				// Ingreso monto TC cierre
 				UtilesSelenium.findElement(By.xpath(ConstantesIngresoOperacionSpot.XPATH_TC_CIERRE))
 						.sendKeys(ConstantesSpot.SUB_ZEROS + tcCierre + Keys.ENTER);
 
-				LOGGER.info("Ingreso T/C Cierre: "  + tcCierre);
+				LOGGER.info("Ingreso T/C Cierre: " + tcCierre);
 
 				// Ingreso instrumento Default
 				ingresoInstrumento(Constantes.INSTRUMENTO_INTER);
@@ -310,6 +297,18 @@ public class IngresoOperacionSpot extends IngresoOperacionSpotUtil {
 			Session.getConfigDriver().logger.log(LogStatus.PASS, "Ingreso monto principal", monedaPrincipal);
 			Session.getConfigDriver().logger.log(LogStatus.PASS, "Ingreso monto T/C cierre", tcCierre);
 			Session.getConfigDriver().waitForLoad();
+
+			// Rescatando Valores punta compra/venta
+			iosPuntaCompra = UtilesSelenium.findElement(By.xpath(ConstantesIngresoOperacionSpot.XPATH_PUNTA_COMPRA))
+					.getAttribute(ConstantesSpotTags.TAG_TITLE);
+			LOGGER.info("IOSPuntaCompra: " + iosPuntaCompra);
+			Session.getConfigDriver().waitForLoad();
+			iosPuntaVenta = UtilesSelenium.findElement(By.xpath(ConstantesIngresoOperacionSpot.XPATH_PUNTA_VENTA))
+					.getAttribute(ConstantesSpotTags.TAG_TITLE);
+			LOGGER.info("IOSPuntaVenta: " + iosPuntaVenta);
+			Session.getConfigDriver().waitForLoad();
+			LOGGER.info("PuntaCompra: " + Session.getVariables().getPuntaCompra());
+			LOGGER.info("PuntaVenta: " + Session.getVariables().getPuntaVenta());
 
 			// Validacion valores punta compra/venta
 			UtilesExtentReport.captura("Ingresar operacion Spot - Validaciones");
