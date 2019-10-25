@@ -15,6 +15,7 @@ import cl.bcs.application.constantes.util.ConstantesSpotTags;
 import cl.bcs.application.factory.util.Session;
 import cl.bcs.application.file.util.Log4jFactory;
 import cl.bcs.application.file.util.UtilesExtentReport;
+import cl.bcs.spot.MantenedorPuntas;
 import cl.bcs.application.file.util.UtilesSelenium;
 
 /**
@@ -28,7 +29,7 @@ public class IngresoOperacionSpotUtil {
 
 	/**
 	 * 
-	 * @param valor
+	 * @param cantidad
 	 * @return
 	 */
 	protected static String formatoBigDecimal(String valor) {
@@ -88,7 +89,6 @@ public class IngresoOperacionSpotUtil {
 	 * @param iosPuntaCompra
 	 * @param iosPuntaVenta
 	 */
-
 	protected static void validacionValoresPunta(String puntaCompra, String puntaVenta, String iosPuntaCompra,
 			String iosPuntaVenta) {
 		BigDecimal puntaCompraFinal = new BigDecimal(formatoBigDecimal(puntaCompra));

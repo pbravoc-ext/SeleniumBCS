@@ -9,12 +9,13 @@ public class Constantes {
 
 	public static final String UNDERSCORE = "_";
 	public static final String SEPARADOR = "/";
-	public static final String XPATHERE_OUT = ")]";
+	public static final String XPATHERE_OUT = "')]";
 	
+	public static final String TRUE = "true";
+	public static final String FALSE = "false";
 
 	public static final String COMPRA = "COMPRA";
 	public static final String VENTA = "VENTA";
-
 	public static final String SI = "SI";
 	public static final String NO = "NO";
 

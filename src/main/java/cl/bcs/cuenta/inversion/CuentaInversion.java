@@ -9,7 +9,9 @@ import com.relevantcodes.extentreports.LogStatus;
 import cl.bcs.application.constantes.util.Constantes;
 import cl.bcs.application.constantes.util.ConstantesCuentaInversion;
 import cl.bcs.application.constantes.util.ConstantesSpot;
+import cl.bcs.application.factory.util.RVExcel;
 import cl.bcs.application.factory.util.Session;
+import cl.bcs.application.factory.util.SessionRV;
 import cl.bcs.application.factory.util.SpotExcel;
 import cl.bcs.application.file.util.Log4jFactory;
 import cl.bcs.application.file.util.SpotUtiles;
@@ -27,7 +29,9 @@ public class CuentaInversion extends SpotUtiles {
 
 	private static final Logger LOGGER = Log4jFactory.getLogger(CuentaInversion.class);
 
-	public static boolean cuentaInversionCliente(SpotExcel datos) {
+	public static boolean cuentaInversionCliente(Object dato) {
+//		SpotExcel datos = (SpotExcel) dato;
+		RVExcel datos = (RVExcel) dato;
 		try {
 			String grilla = null;
 

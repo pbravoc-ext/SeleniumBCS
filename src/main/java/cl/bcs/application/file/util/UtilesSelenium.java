@@ -15,6 +15,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.internal.Coordinates;
 import org.openqa.selenium.interactions.internal.Locatable;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import cl.bcs.application.factory.util.Session;
 import cl.bcs.application.factory.util.SessionBuilder;
@@ -290,6 +292,29 @@ public class UtilesSelenium {
 			LOGGER.error(no.getMessage());
 		}
 		return null;
+	}
+	/**
+	 * 
+	 * @param elementBig
+	 * @param xpathInput
+	 * @return
+	 */
+	public static WebElement findInputNumber(String elementBig,String xpathInput) {
+		UtilesSelenium.findElement(By.xpath(elementBig))
+		.click();
+		new WebDriverWait((WebDriver) Session.getConfigDriver().getWebDriver(), 10).until(ExpectedConditions
+				.visibilityOfElementLocated(By.xpath(xpathInput)));
+		return UtilesSelenium.findElement(By.xpath(xpathInput));
+	}
+	/**
+	 * 
+	 * @param element
+	 * @return
+	 */
+	public static WebElement findInputText(String element) {
+		new WebDriverWait((WebDriver) Session.getConfigDriver().getWebDriver(), 10).until(ExpectedConditions
+				.visibilityOfElementLocated(By.xpath(element)));
+		return UtilesSelenium.findElement(By.xpath(element));
 	}
 	/**
 	 * chrome

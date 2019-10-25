@@ -11,6 +11,7 @@ import com.relevantcodes.extentreports.LogStatus;
 import cl.bcs.application.constantes.util.Constantes;
 import cl.bcs.application.constantes.util.ConstantesSpot;
 import cl.bcs.application.constantes.util.ConstantesTesoreria;
+import cl.bcs.application.factory.util.RVExcel;
 import cl.bcs.application.factory.util.Session;
 import cl.bcs.application.factory.util.SpotExcel;
 import cl.bcs.application.file.util.Log4jFactory;
@@ -18,7 +19,8 @@ import cl.bcs.application.file.util.SpotUtiles;
 import cl.bcs.application.file.util.UtilesExtentReport;
 import cl.bcs.application.file.util.UtilesSelenium;
 import cl.bcs.plataforma.CerrarVentana;
-import cl.bcs.plataforma.SeleccionarMenu;
+import cl.bcs.plataforma.SeleccionMenu;
+
 
 public class Tesoreria {
 	private static WebDriver webDriver = null;
@@ -28,9 +30,11 @@ public class Tesoreria {
 		PageFactory.initElements(webDriver, this);
 	}
 
-	private static final Logger LOGGER = Log4jFactory.getLogger(SeleccionarMenu.class);
+	private static final Logger LOGGER = Log4jFactory.getLogger(SeleccionMenu.class);
 
-	public static boolean gestionTesoreria(SpotExcel datos) {
+	public static boolean gestionTesoreria(Object dato) {
+//		SpotExcel datos = (SpotExcel) dato;
+		RVExcel datos = (RVExcel) dato;
 
 		try {
 			Session.getConfigDriver().waitForLoad();

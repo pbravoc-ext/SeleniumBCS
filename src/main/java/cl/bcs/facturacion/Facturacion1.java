@@ -9,6 +9,7 @@ import com.relevantcodes.extentreports.LogStatus;
 import cl.bcs.application.constantes.util.Constantes;
 import cl.bcs.application.constantes.util.ConstantesFacturacion;
 import cl.bcs.application.constantes.util.ConstantesSpot;
+import cl.bcs.application.factory.util.RVExcel;
 import cl.bcs.application.factory.util.Session;
 import cl.bcs.application.factory.util.SpotExcel;
 import cl.bcs.application.file.util.Log4jFactory;
@@ -16,19 +17,22 @@ import cl.bcs.application.file.util.SpotUtiles;
 import cl.bcs.application.file.util.UtilesExtentReport;
 import cl.bcs.application.file.util.UtilesSelenium;
 import cl.bcs.plataforma.CerrarVentana;
-import cl.bcs.plataforma.SeleccionarMenu;
+import cl.bcs.plataforma.SeleccionMenu;
 
-public class Facturacion extends SpotUtiles{
+
+public class Facturacion1 extends SpotUtiles{
 	private static WebDriver webDriver = null;
 
-	public Facturacion(WebDriver driver) {
+	public Facturacion1(WebDriver driver) {
 		webDriver = driver;
 		PageFactory.initElements(webDriver, this);
 	}
 
-	private static final Logger LOGGER = Log4jFactory.getLogger(Facturacion.class);
+	private static final Logger LOGGER = Log4jFactory.getLogger(Facturacion1.class);
 
-	public static boolean gestionFacturacion(SpotExcel datos) {
+	public static boolean gestionFacturacion(Object dato) {
+//		SpotExcel datos = (SpotExcel) dato;
+		RVExcel datos = (RVExcel) dato;
 		String cliente = datos.getRut() + " " + datos.getNombre() + " (" + datos.getPortafolio() + ")";
 
 		// Datos Movimientos a Facturar
@@ -619,7 +623,7 @@ public class Facturacion extends SpotUtiles{
 					"Error: Gestion de Facturacion - Datos facturacion - Spot", "Datos: " + e.getMessage());
 			UtilesSelenium.findElement(By.xpath(ConstantesFacturacion.XPATH_BTN_ERROR)).click();
 			CerrarVentana.init();
-			SeleccionarMenu.seleccionarMenuFacturacion();
+			SeleccionMenu.seleccionarMenuFacturacion();
 			return false;
 		}
 	}

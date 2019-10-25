@@ -117,6 +117,46 @@ public class FactoryWebDriver {
 		}
 	}
 
+	/**
+	 * @throws Exception
+	 * 
+	 */
+	public void waitForLoadMedio() {
+		ExpectedCondition<Boolean> expectation = expectedCondition();
+		try {
+			Thread.sleep(Integer.parseInt(Resource.getProperty("select.config.time.mid")));
+
+			WebDriverWait wait = new WebDriverWait(driver, 30);
+			wait.until(expectation);
+		} catch (Exception error) {
+			LOGGER.error(error);
+			if (error instanceof WebDriverException) {
+				driver.switchTo().defaultContent();
+				this.waitForLoad();
+			}
+		}
+	}
+
+	/**
+	 * @throws Exception
+	 * 
+	 */
+	public void waitForLoadLargo() {
+		ExpectedCondition<Boolean> expectation = expectedCondition();
+		try {
+			Thread.sleep(Integer.parseInt(Resource.getProperty("select.config.time.long")));
+
+			WebDriverWait wait = new WebDriverWait(driver, 30);
+			wait.until(expectation);
+		} catch (Exception error) {
+			LOGGER.error(error);
+			if (error instanceof WebDriverException) {
+				driver.switchTo().defaultContent();
+				this.waitForLoad();
+			}
+		}
+	}
+
 	public void waitForLoad(long time) {
 		ExpectedCondition<Boolean> expectation = expectedCondition();
 		try {

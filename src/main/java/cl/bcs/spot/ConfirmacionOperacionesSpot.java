@@ -15,7 +15,8 @@ import cl.bcs.application.file.util.SpotUtiles;
 import cl.bcs.application.file.util.UtilesExtentReport;
 import cl.bcs.application.file.util.UtilesSelenium;
 import cl.bcs.plataforma.CerrarVentana;
-import cl.bcs.plataforma.SeleccionarMenu;
+import cl.bcs.plataforma.SeleccionMenu;
+
 
 /**
  * 
@@ -42,7 +43,7 @@ public class ConfirmacionOperacionesSpot {
 			Session.getConfigDriver().logger.log(LogStatus.PASS, "Ingreso Datos cliente ", cliente);
 			Session.getConfigDriver().waitForLoad();
 			// Buscar
-			SeleccionarMenu.seleccionarConfirmacionOperaciones();
+			SeleccionMenu.seleccionarModuloConfirmacionOperacionesSpot();
 
 			UtilesSelenium.findElement(By.xpath(ConstantesConfirmacionOperacionSpot.XPATH_FOLIO_INPUT))
 					.sendKeys(ConstantesSpot.SUB_ZEROS + Session.getFolio() + Keys.ENTER);

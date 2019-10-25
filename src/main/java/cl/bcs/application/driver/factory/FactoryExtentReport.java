@@ -16,12 +16,11 @@ import cl.bcs.application.file.util.DateUtil;
 
 public class FactoryExtentReport {
 	
-	protected void configuracionInicialER() {
-
+	public static void configuracionInicialER() {
 		Session.getConfigDriver().extent = new ExtentReports(
-		"../test-output/Optimus_Spot-"+DateUtil.fecha()+".html", true);
+		"../test-output/OptimusER-"+DateUtil.fecha()+".html", true);
 		Session.getConfigDriver().extent.addSystemInfo("Encoding", "ISO-8859-1");
-		Session.getConfigDriver().extent.addSystemInfo("Host Name", "Automatizacion OPTIMUS")
+		Session.getConfigDriver().extent.addSystemInfo("Host Name", "Automatización OPTIMUS")
 				.addSystemInfo("Environment", "http://bolsa.optimuscb.cl:9045").addSystemInfo("User Name", "ROBOT");
 		Session.getConfigDriver().extent.loadConfig(new File(System.getProperty("user.dir") + "/extent-config.xml"));
 	}

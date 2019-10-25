@@ -1,13 +1,21 @@
 package cl.bcs.application.constantes.util;
 
+import cl.bcs.application.factory.util.Session;
+
 /**
  * 
  * @author Narveider
  *
  */
 public class ConstantesFacturacion {
-//	static String monto = "2.222"; // Debe estar en formato 99.999.999
-//
+	static String monto = "2.222"; // Debe estar en formato 99.999.999
+
+	public static final String FULL_XPATH_LABEL_1 = "/html/body/div[133]/div[2]/div[2]/div/div[1]/div/div[2]/div[1]/label";	
+	public static final String FULL_XPATH_LABEL_2 = "/html/body/div[133]/div[2]/div[2]/div/div[1]/div/div[2]/div[2]/label";	
+	public static final String FULL_XPATH_LABEL_3 = "/html/body/div[133]/div[2]/div[2]/div/div[1]/div/div[2]/div[3]/label";	
+	public static final String FULL_XPATH_LABEL_4 = "/html/body/div[133]/div[2]/div[2]/div/div[1]/div/div[2]/div[4]/label";	
+	public static final String FULL_XPATH_LABEL_5 = "/html/body/div[133]/div[2]/div[2]/div/div[1]/div/div[2]/div[5]/label";
+
 //	public static final String COMPRA = "COMPRA";
 //	public static final String VENTA = "VENTA";
 
@@ -42,7 +50,10 @@ public class ConstantesFacturacion {
 	public static final String XPATH_BTN_ACEPTAR = "//*[@id='FORM_VentanaMensajeResultado']/div[2]/div/div[2]/bcs-button/button";
 
 	public static final String XPATH_TABLA = "//*[@id='grid-movimientos-facturar']/span/div[2]/div[4]/table";
-	
+	public static final String XPATH_COMPARARFOLIO = "//*[@id='grid-movimientos-facturar']/span/div[2]/div[4]/table//span[@ng-bind='dataItem.FolioTransaccion' and contains(text(),"
+			+ Session.getFolio() + ")]";
+	public static final String XPATH_COMPARARMONTO = "//*[@id='grid-movimientos-facturar']/span/div[2]/div[4]/table//span[@ng-bind='dataItem.Monto' and contains(text(),"
+			+ monto + ")]";
 	public static final String XPATH_CELDAFOLIO = "//*[@id='grid-movimientos-facturar']/span/div[2]/div[4]/table/tbody/tr/td[13]";
 	public static final String XPATH_CELDAMONTO = "//*[@id='grid-movimientos-facturar']/span/div[2]/div[4]/table/tbody/tr/td[31]";
 
@@ -58,6 +69,9 @@ public class ConstantesFacturacion {
 	public static final String XPATH_BTN_CONFIRMARFAC = "//*[@id='FORM_VentanaAlerta']/div[2]/div/div[2]/bcs-button[1]/button";
 	public static final String XPATH_BTN_ACEPTARFAC = "//*[@id='FORM_VentanaMensajeResultado']/div[2]/div/div[2]/bcs-button/button";
 
+	public static final String XPATH_COMPARARFOLIOFAC = "//*[@id='grid-comprobantes-facturacion']/span/div[2]/div[3]/table/tbody/tr/td[5]/span[@ng-bind='dataItem.IdComprobante' and contains(text(),'";
+	public static final String XPATHERE = "//*[@id='grid-movimientos-facturar']/span/div[2]/div[4]/table//span[@ng-bind='dataItem.FolioTransaccion' and contains(text(),'";
+
 	public static final String XPATHERE_COMPARAR_FOLIO = "//*[@id='grid-movimientos-facturar']/span/div[2]/div[4]/table//span[@ng-bind='dataItem.FolioTransaccion' and contains(text(),";
 	
 	public static final String XPATHERE_COMPARAR_OPERACION = "//*[@id='grid-movimientos-facturar']/span/div[2]/div[4]/table//span[@ng-bind='dataItem.AccionTipoOperacion' and contains(text(),";
@@ -71,5 +85,13 @@ public class ConstantesFacturacion {
 	public static final String XPATH_MONTO_GRILLA_MOV_FACTURACION = "//*[@id='grid-movimientos-facturar']//span[@bcs-bind='dataItem.Monto']";
 	
 	public static final String XPATH_MONTO_GRILLA_COMP_FACTURACION = "//*[@id='grid-comprobantes-facturacion']//span[@bcs-bind='dataItem.Monto']";
+
+
+	// FLUJO RV
+
+	public static final String FULL_XPATH_FECHA_TRANSACCION = "/html/body/div[6]/div[2]/div[2]/div/div/div/div/div/div[1]/div/div/div[1]/div[2]/bcs-grid/span/div[2]/div[4]/table/tbody/tr/td[13]";
+	public static final String FULL_XPATH_FECHA_LIQUIDACION = "/html/body/div[6]/div[2]/div[2]/div/div/div/div/div/div[1]/div/div/div[1]/div[2]/bcs-grid/span/div[2]/div[4]/table/tbody/tr/td[40]";
+	public static final String FULL_XPATH_MONTO_TOTAL_LOCAL = "//*[@id='grid-movimientos-facturar']/span/div[2]/div[4]/table/tbody/tr/td[58]/span";
+	public static final String XPATH_MONTO_FACTURA_RV = "//*[@id='grid-movimientos-facturar']/span/div[2]/div[4]/table/tbody/tr/td[31]/span";
 
 }

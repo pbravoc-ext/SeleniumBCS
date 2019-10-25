@@ -8,8 +8,8 @@ import cl.bcs.application.factory.util.Session;
 import cl.bcs.application.factory.util.SpotExcel;
 import cl.bcs.application.file.util.Log4jFactory;
 import cl.bcs.cuenta.inversion.CuentaInversion;
-import cl.bcs.facturacion.Facturacion;
-import cl.bcs.plataforma.SeleccionarMenu;
+import cl.bcs.facturacion.Facturacion1;
+import cl.bcs.plataforma.SeleccionMenu;
 import cl.bcs.spot.ConfirmacionOperacionesSpot;
 import cl.bcs.spot.IngresoOperacionSpot;
 import cl.bcs.spot.MantenedorPuntas;
@@ -23,11 +23,11 @@ public class Spot {
 		LOGGER.info("VARIACION N° " + Session.getVariacion() + " | " +usu.getVariacion());
 		LOGGER.info("==================================================================================");
 		boolean result = true;	
-		result = SeleccionarMenu.init();
+		result = SeleccionMenu.seleccionarMenuSpot();
 		if(result == false) {
 			return result;
 		}
-		result = SeleccionarMenu.seleccionarMantenedorPuntas();
+		result = SeleccionMenu.seleccionarMantenedorPuntas();
 		if(result == false) {
 			return result;
 		}
@@ -35,7 +35,7 @@ public class Spot {
 		if(result == false) {
 			return result;
 		}
-		result = SeleccionarMenu.seleccionarIngresoOperacionSpot();
+		result = SeleccionMenu.seleccionarIngresoOperacionSpot();
 		if(result == false) {
 			return result;
 		}
@@ -51,7 +51,7 @@ public class Spot {
 		if(result == false) {
 			return result;
 		}
-		result = SeleccionarMenu.seleccionarMenuConfirmacionOperaciones();
+		result = SeleccionMenu.seleccionarModuloConfirmacionOperacionesSpot();
 		if(result == false) {
 			return result;
 		}
@@ -59,31 +59,31 @@ public class Spot {
 		if(result == false) {
 			return result;
 		}
-		result = SeleccionarMenu.init();
+		result = SeleccionMenu.seleccionarMenuSpot();
 		if(result == false) {
 			return result;
 		}
-		result = SeleccionarMenu.seleccionarMenuFacturacion();
+		result = SeleccionMenu.seleccionarMenuFacturacion();
 		if(result == false) {
 			return result;
 		}
-		result = SeleccionarMenu.seleccionarFacturacion();
+		result = SeleccionMenu.seleccionarFacturacion();
 		if(result == false) {
 			return result;
 		}
-		result = Facturacion.gestionFacturacion(usu);
+		result = Facturacion1.gestionFacturacion(usu);
 		if(result == false) {
 			return result;
 		}
-		result = SeleccionarMenu.seleccionarMenuFacturacion();
+		result = SeleccionMenu.seleccionarMenuFacturacion();
 		if(result == false) {
 			return result;
 		}
-		result = SeleccionarMenu.seleccionarMenuCuentaInversion();
+		result = SeleccionMenu.seleccionarMenuCuentaInversion();
 		if(result == false) {
 			return result;
 		}
-		result = SeleccionarMenu.seleccionarCuentaInversionCliente();
+		result = SeleccionMenu.seleccionarCuentaInversionCliente();
 		if(result == false) {
 			return result;
 		}
@@ -91,16 +91,16 @@ public class Spot {
 		if(result == false) {
 			return result;
 		}
-		result = SeleccionarMenu.seleccionarMenuCuentaInversion();
+		result = SeleccionMenu.seleccionarMenuCuentaInversion();
 		if(result == false) {
 			return result;
 		}
 		if(usu.getCuentaInversion().equals("NO")) {
-			result = SeleccionarMenu.seleccionarMenuTesoreria();
+			result = SeleccionMenu.seleccionarMenuTesoreria();
 			if(result == false) {
 				return result;
 			}
-			result = SeleccionarMenu.seleccionarGestionTesoreria();
+			result = SeleccionMenu.seleccionarGestionTesoreria();
 			if(result == false) {
 				return result;
 			}
@@ -108,7 +108,7 @@ public class Spot {
 			if(result == false) {
 				return result;
 			}
-			result = SeleccionarMenu.seleccionarMenuTesoreria();
+			result = SeleccionMenu.seleccionarMenuTesoreria();
 			if(result == false) {
 				return result;
 			}
